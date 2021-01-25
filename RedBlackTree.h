@@ -11,22 +11,24 @@ struct RBTNode {
     RBTNode *right = nullptr; 
 };
 
-class RBTree{
+class RedBlackTree{
 	
 	public:
-		RBTree();
-        ~RBTree();
+		RedBlackTree();
+        ~RedBlackTree();
         
-        void Insert(int);
-        bool Contains(int);
+        void Insert(int x);
+        bool Contains(int x);
         
         int GetMin();
         int GetMax();
         int Size();
         
+        /*
         std::string ToInfixString() const {return InfixString(root);};
         std::string ToPrefixString() const {return PrefixString(root);};
-        std::string ToPostfixString() const {return PostfixString(root);};
+        std::string ToPostfixString() const {return PostfixString(root);};*/
+
 	private:
         RBTNode *root;
         unsigned long long int numItems;
