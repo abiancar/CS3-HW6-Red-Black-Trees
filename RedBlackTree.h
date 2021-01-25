@@ -15,28 +15,31 @@ struct RBTNode {
 class RedBlackTree{
 	
 	public:
+	
 		RedBlackTree();
         ~RedBlackTree();
-        
-        void Insert(int x);
+
+        void Insert(int x); 
         bool Contains(int target);
+        
         
         int GetMin();
         int GetMax();
         int Size();
         
-        std::string ToInfixString() const {return InfixString(root);};
+        
+        std::string ToInfixString() const {return InfixString(root);};/*
         std::string ToPrefixString() const {return PrefixString(root);};
         std::string ToPostfixString() const {return PostfixString(root);};
 
         void LeftRotation(RBTNode* rbn);
         void RightRotation(RBTNode* rbn);
         void FLipColor(RBTNode* rbn); // may need more coloring methods
-        RBTNode* GetUncle(RBTNode* rbn);
+        RBTNode* GetUncle(RBTNode* rbn);*/
 
 //	private:
         RBTNode *root;
-        unsigned long long int numItems;
+        unsigned long long int numItems = 0;
 
         static std::string InfixString(RBTNode* a);
         static std::string PrefixString(RBTNode* a); 

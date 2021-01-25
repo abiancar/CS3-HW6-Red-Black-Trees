@@ -28,7 +28,18 @@ void RedBlackTree::Insert(int x)
     // we should catch an error the user tries to insert an item that already exists!
     //if this->Contains(x) -> throw error or exit program
     
-    
+    /*
+    try
+    {
+		if (this->Contains(x))
+		{
+			throw exception(); 
+		}
+	}
+	catch (exception())
+	{
+		cout << "The item you are trying to insert already exists in the tree." << endl; 
+	}*/
     
     // if the size of the tree is 0
 	if (numItems == 0) // create a node, make the node the root node 
@@ -37,23 +48,34 @@ void RedBlackTree::Insert(int x)
 		newNode->color = 0; // set to black
         newNode->data = x; 
 		this->root = newNode; 
-        numItems++;
+		numItems += 1; 
 	}
+	
     else{ // tree is not empty, insert newNode as leaf node with color red
+		
+	//2) If tree is not empty, insert the newNode as leaf node with color red
+	//3) If the parent of newNode is black then exit from the operation
+	//4) If the parent of newNode is Red then check the color of parent's sibling
+	
         RBTNode* newNode = new RBTNode();
         newNode->data = x;
         newNode->color = 1; //set color as red
         
-        RBTNode* parent =  this->root;
-        RBTNode* child;
+        //RBTNode* parent =  this->root;
+        RBTNode* currNode = this->root;
 
-        if(x < parent->data){          // if the child should be on the left
-            child = parent->left;
+        if(x < currNode->data){          // if the child should be on the left
+			cout << "Hello" << endl; 
+			currNode = currNode->left; 
+
         }
         else{                          // if the child should be on the right
-            child = parent->right;
+            currNode = currNode->right; 
         }
+   
+		/*
         while(child!= nullptr){
+			cout << "Hello2" << endl; 
             if(x < parent->data){          // if the child should be on the left
                 child = parent->left;
                 parent = child;
@@ -64,12 +86,12 @@ void RedBlackTree::Insert(int x)
             }
         }
         child = newNode;
-        child-> parent = parent; // parent is still being stored at this point so we can do this
+        child-> parent = parent; // parent is still being stored at this point so we can do this*/
         this->numItems++;
-
-        if(parent->color != 0){ // if the new node's parent is red
+        /*
+        if(currNode->color != 0){ // if the new node's parent is red
             //check uncle color
-        }
+		}*/
     }
 	
 }
@@ -100,6 +122,7 @@ bool RedBlackTree::Contains(int target) // FIXME: Prolly doesn't work yet
 
 }
 
+
 int RedBlackTree::GetMin()
 {
     RBTNode* currNode = this->root;
@@ -122,6 +145,7 @@ int RedBlackTree::Size()
 {
 	return numItems; 
 }
+
 
 string RedBlackTree::InfixString(RBTNode* currNode)
 {
@@ -146,14 +170,17 @@ string RedBlackTree::InfixString(RBTNode* currNode)
         colorString = "B";
     }
     else{
+		cout << currNode->left->data << endl; 
         colorString = "R";
     }
 
     infixStr = infixStr + InfixString(currNode->left) + colorString + to_string(currNode->data) + InfixString(currNode->right);
+
     
 	return infixStr; 
 }
 
+/*
 string RedBlackTree::PrefixString(RBTNode* a)
 {
 	string s = "";
@@ -231,4 +258,4 @@ void RedBlackTree::FLipColor(RBTNode* rbn){ //requires testing
         rbn->color =0;
     }
 
-}
+}*/

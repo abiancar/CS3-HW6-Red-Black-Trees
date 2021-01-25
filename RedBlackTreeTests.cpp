@@ -238,20 +238,17 @@ void TestGetMinimumMaximum(){
 
 
 int main(){
+
 	RedBlackTree rbt = RedBlackTree();
-	rbt.Insert(53);
-	cout << "000" << endl;
-	cout << "SIZE: " << rbt.Size() << endl;
-	cout << "A" << endl;
-	cout << "ROOT DATA: " << rbt.root->data << endl;
-	cout << "B" << endl;
-	cout << "TREE MAX: " << rbt.GetMax() << endl;
-	cout << "C" << endl;
-	cout << "TREE MIN" << rbt.GetMin();
-	cout << "D" << endl;
-	cout << "CONTAINS 503: 0 = False, 1 = True: " << rbt.Contains(503);
-	cout << "E" << endl;
-	cout << rbt.ToInfixString() << endl;
+	
+	rbt.Insert(53); 
+	rbt.Insert(1); 
+	
+	cout << "Size: " << rbt.Size() << endl;
+	cout << "min: " << rbt.GetMin() << endl; 
+	cout << "max: " << rbt.GetMax() << endl; 
+	//cout << rbt.ToInfixString() << endl;
+	
 	 /*
 	TestSimpleConstructor();
 	
