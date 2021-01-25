@@ -24,7 +24,13 @@ RedBlackTree::~RedBlackTree()
 
 void RedBlackTree::Insert(int x)
 {
-	// if the size of the tree is 0
+	//FIX ME:
+    // we should catch an error the user tries to insert an item that already exists!
+    //if this->Contains(x) -> throw error or exit program
+    
+    
+    
+    // if the size of the tree is 0
 	if (numItems == 0) // create a node, make the node the root node 
 	{
 		RBTNode* newNode = new RBTNode(); 
@@ -59,6 +65,7 @@ void RedBlackTree::Insert(int x)
         }
         child = newNode;
         child-> parent = parent; // parent is still being stored at this point so we can do this
+        this->numItems++;
 
         if(parent->color != 0){ // if the new node's parent is red
             //check uncle color
@@ -116,25 +123,50 @@ int RedBlackTree::Size()
 	return numItems; 
 }
 
-string InfixString(RBTNode* a)
+string RedBlackTree::InfixString(RBTNode* currNode)
+{
+    // take a node
+    // print the node
+    // if the left node is not null, print the left
+    // if the right node is not null, print the right
+    
+    // emptry RBT scenario
+    cout << "HELLO" << endl;
+
+    if(currNode == nullptr){
+       return "";
+    }
+    cout << "HELLO" << endl;
+
+    string colorString;
+    string infixStr;
+    int color = currNode->color;
+    cout << "HELLO" << endl;
+    if(color == 0){
+        colorString = "B";
+    }
+    else{
+        colorString = "R";
+    }
+
+    infixStr = infixStr + InfixString(currNode->left) + colorString + to_string(currNode->data) + InfixString(currNode->right);
+    
+	return infixStr; 
+}
+
+string RedBlackTree::PrefixString(RBTNode* a)
 {
 	string s = "";
 	return s; 
 }
 
-string PrefixString(RBTNode* a)
+string RedBlackTree::PostfixString(RBTNode* a)
 {
 	string s = "";
 	return s; 
 }
 
-string PostfixString(RBTNode* a)
-{
-	string s = "";
-	return s; 
-}
-
-RBTNode* GetUncle(RBTNode* rbn){ //requires testing but should work
+RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){ //requires testing but should work
     RBTNode* father = rbn->parent;
     RBTNode* grandFather = father->parent;
 
@@ -144,7 +176,7 @@ RBTNode* GetUncle(RBTNode* rbn){ //requires testing but should work
     else{return grandFather->left;};
 }
 
-void LeftRotation(RBTNode* currNode){ // may be bugs, simply changed left to right from sister method
+void RedBlackTree::LeftRotation(RBTNode* currNode){ // may be bugs, simply changed left to right from sister method
     //the curr node's parent is going to change their son to the currNode's left child
     RBTNode* father = currNode->parent;
     RBTNode* rightChild = currNode->right;
@@ -168,7 +200,7 @@ void LeftRotation(RBTNode* currNode){ // may be bugs, simply changed left to rig
     currNode->right = adoptedChild;
 }
 
-void RightRotation(RBTNode* currNode){ // requires testing
+void RedBlackTree::RightRotation(RBTNode* currNode){ // requires testing
     //the curr node's parent is going to change their son to the currNode's left child
     RBTNode* father = currNode->parent;
     RBTNode* leftChild = currNode->left;
@@ -192,7 +224,7 @@ void RightRotation(RBTNode* currNode){ // requires testing
     currNode->left = adoptedChild;
 }
 
-void FLipColor(RBTNode* rbn){
+void RedBlackTree::FLipColor(RBTNode* rbn){ //requires testing
     if(rbn->color == 0){
         rbn->color =1;
     }else{
