@@ -9,6 +9,7 @@ struct RBTNode {
     unsigned short int color;
     RBTNode *left = nullptr;
     RBTNode *right = nullptr; 
+    RBTNode *parent = nullptr;
 };
 
 class RedBlackTree{

@@ -245,6 +245,9 @@ int main(){
 	rbt.Insert(53);
 	cout << rbt.Size() << endl;
 	cout << rbt.root->data << endl;
+	cout << rbt.GetMax();
+	cout << rbt.GetMin();
+	cout << rbt.Contains(503);
 	 /*
 	TestSimpleConstructor();
 	
