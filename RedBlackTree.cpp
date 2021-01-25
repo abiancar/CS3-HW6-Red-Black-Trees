@@ -133,3 +133,70 @@ string PostfixString(RBTNode* a)
 	string s = "";
 	return s; 
 }
+
+RBTNode* GetUncle(RBTNode* rbn){ //requires testing but should work
+    RBTNode* father = rbn->parent;
+    RBTNode* grandFather = father->parent;
+
+    if(grandFather->left == father){
+        return grandFather->right;
+    }
+    else{return grandFather->left;};
+}
+
+void LeftRotation(RBTNode* currNode){ // may be bugs, simply changed left to right from sister method
+    //the curr node's parent is going to change their son to the currNode's left child
+    RBTNode* father = currNode->parent;
+    RBTNode* rightChild = currNode->right;
+    RBTNode* adoptedChild = rightChild->left;
+
+    //handle the father interaction
+    if(father->right == currNode){
+        father->right = rightChild;
+    }
+    else{
+        father->left = rightChild;
+    }
+    rightChild->parent = father;
+
+    // have the left child become the currNode's father
+    rightChild->right = currNode;
+    currNode->parent = rightChild;
+
+    // have the adopted child become the CurrNode's son
+    adoptedChild->parent = currNode;
+    currNode->right = adoptedChild;
+}
+
+void RightRotation(RBTNode* currNode){ // requires testing
+    //the curr node's parent is going to change their son to the currNode's left child
+    RBTNode* father = currNode->parent;
+    RBTNode* leftChild = currNode->left;
+    RBTNode* adoptedChild = leftChild->right;
+
+    //handle the father interaction
+    if(father->left == currNode){
+        father->left = leftChild;
+    }
+    else{
+        father->right = leftChild;
+    }
+    leftChild->parent = father;
+
+    // have the left child become the currNode's father
+    leftChild->right = currNode;
+    currNode->parent =leftChild;
+
+    // have the adopted child become the CurrNode's son
+    adoptedChild->parent = currNode;
+    currNode->left = adoptedChild;
+}
+
+void FLipColor(RBTNode* rbn){
+    if(rbn->color == 0){
+        rbn->color =1;
+    }else{
+        rbn->color =0;
+    }
+
+}

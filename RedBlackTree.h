@@ -31,7 +31,7 @@ class RedBlackTree{
 
         void LeftRotation(RBTNode* rbn);
         void RightRotation(RBTNode* rbn);
-        void SwapColor(RBTNode* rbn); // may need more coloring methods
+        void FLipColor(RBTNode* rbn); // may need more coloring methods
         RBTNode* GetUncle(RBTNode* rbn);
 
 //	private:
