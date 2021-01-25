@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+
 void TestSimpleConstructor(){
 	/*
 	cout << "Testing Simple Constructor... " << endl;
@@ -239,8 +241,11 @@ void TestGetMinimumMaximum(){
 
 
 int main(){
-
-	
+	RedBlackTree rbt = RedBlackTree();
+	rbt.Insert(53);
+	cout << rbt.Size() << endl;
+	cout << rbt.root->data << endl;
+	 /*
 	TestSimpleConstructor();
 	
 	TestInsertFirstNode();
@@ -256,7 +261,7 @@ int main(){
 
 	TestContains();
 	TestGetMinimumMaximum();
-
+	*/
 	
 	cout << "ALL TESTS PASSED!!" << endl;
 	return 0;
