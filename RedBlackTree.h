@@ -1,4 +1,8 @@
+#ifndef RED_BLACK_TREE_H
+#define RED_BLACK_TREE_H
+
 #include <string>
+
 using namespace std;
 struct RBTNode {
 	int data;
@@ -32,3 +36,5 @@ class RBTree{
         static std::string PostfixString(RBTNode*); 
 
 };
+
+#endif
