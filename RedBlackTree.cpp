@@ -88,10 +88,6 @@ void RedBlackTree::Insert(int x)
 
 
         // 3: If the parent of newNode is black then exit from the operation
-
-        //what is the color of the parent of the newNode
-        //WHILE LOOP STARTING HERE?
-
         if(child->parent->color == black){
         }
 
@@ -99,17 +95,37 @@ void RedBlackTree::Insert(int x)
         else if(child->parent->color == red){  
             cout << "STEP 4 Executing " << endl;
             
-            // 5: if uncle == black or null, make suitable rotation and recolor the uncle
-            // if(this->GetUncle(child)->color == black || this->GetUncle(child) == nullptr){
-            //     cout << "STEP 5 WORKIN" << endl;
-            //     //do some stuff
+            // if the child is on the left side and does not have an uncle 
+            // we have to right rotate of the parent of the child 
+            // the parent becomes the root node 
+            //       30 
+            //       /
+            //      15
+            //      /
+            //     10
+            if (this->GetUncle(child) ==  nullptr)
+            {
+				// rotation 
+				
+			}
+			
+			// i
+            
+            else 
+            {
+				// 5: if uncle == black or null, make suitable rotation and recolor the uncle
+				if (this->GetUncle(child)->color == black)
+				{
+					cout << "yup" << endl; 
+				}
 
-            // }
             // 6: if uncle is red, make uncle black
-            if(this->GetUncle(child)->color == red){
-                this->FlipColor(this->GetUncle(child)); //flip the uncle's color
+				if(this->GetUncle(child)->color == red)
+				{
+					this->FlipColor(this->GetUncle(child)); //flip the uncle's color
                 //do otha stuff
-            }
+				}
+			}
 
             // 7? : Repeat till we get the correct tree
         }
@@ -177,8 +193,6 @@ string RedBlackTree::InfixString(RBTNode* currNode)
     // print the right node
     
     // emptry RBT scenario
-    // cout << "K" << endl;
-    // cout << currNode->data << " CURRNODE DATA " << endl;
     if(currNode == nullptr){
        return "";
     }
@@ -194,7 +208,7 @@ string RedBlackTree::InfixString(RBTNode* currNode)
     else{
         colorString = " R";
     }
-// cout << "O" << endl;
+
     nodeString = colorString + to_string(currNode->data) + " ";
 
     infixStr = infixStr + InfixString(currNode->left) + nodeString + InfixString(currNode->right);
@@ -270,25 +284,19 @@ string RedBlackTree::PostfixString(RBTNode* currNode)
 	return postfixStr; 
 }
 
-// WORKING ?!!
-// if we get the root node, and we try to call
-// this function, it shouldn't work and catch that error 
-// if a node does NOT have an uncle
-// make sure we catch that exception
-
 RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){ 
     // if the current node is a root
     // there is no uncle 
     if (rbn == this->root)
     {
-    throw invalid_argument("This is the root, no uncle possible"); 
+		throw invalid_argument("This is the root, no uncle possible"); 
     }
 
     // if the grandfather does not exist 
     // there is no uncle 
     if (rbn->parent->parent == nullptr)
     {
-    throw invalid_argument("This node has no grandfather, no uncle possible"); 
+		throw invalid_argument("This node has no grandfather, no uncle possible"); 
     } 
         
     RBTNode* father = rbn->parent;
@@ -353,6 +361,30 @@ void RedBlackTree::LeftRotation(RBTNode* currNode){
 
 // Working
 void RedBlackTree::RightRotation(RBTNode* currNode){ 
+	
+	// if the current node IS the root 
+	if (currNode == root)
+	{	
+		// currNode's left child becomes the root 
+		root = currNode->left; 
+		// root is now 15 
+		//currNode becomes the right child of the root 
+		root->right = currNode; 
+		// right child of the root is now 30 
+		
+		root->parent = nullptr; 
+		
+		root->right->parent = root; 
+		
+	/*
+		currNode->parent->parent = currNode;
+
+		// adopted child becomes 30 
+		currNode->right = currNode->parent;
+		//currNode->parent = nullptr; */
+	}
+	// after the rotation the parent of the child becomes the root 
+	
     //the curr node's parent is going to change their son to the currNode's left child
     RBTNode* father = currNode->parent;
     RBTNode* leftChild = currNode->left;

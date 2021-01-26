@@ -273,6 +273,18 @@ int main(){
 
 	RedBlackTree rbt = RedBlackTree();
 	
+	rbt.Insert(30);
+	rbt.Insert(15); 
+	rbt.Insert(10); 
+	
+	cout << "Pre-rotation: " << rbt.ToPrefixString() << endl; 
+	
+	rbt.RightRotation(rbt.GetNode(30)); 
+	
+	cout << "Post-rotation: " << rbt.ToPrefixString() << endl; 
+	
+	
+	/*
 	rbt.Insert(530);
 	cout <<"A" << endl; 
 	rbt.Insert(1); 
@@ -295,8 +307,9 @@ int main(){
 	cout << "Contains 1: (0 false, 1 true)  " << rbt.Contains(1) << endl;
 	cout << "Contains 8487866: (0 false, 1 true)" << rbt.Contains(8487866) << endl;
 	cout << "Contains 124: (0 false, 1 true)" << rbt.Contains(124) << endl;
-	cout << "INFIX: " << rbt.ToInfixString() << endl;
+	cout << "INFIX: " << rbt.ToInfixString() << endl;*/
 	
+	/*
 	RedBlackTree rbt2 = RedBlackTree();
 
 	rbt2.Insert(5);
@@ -330,7 +343,7 @@ int main(){
 	rbt3->Insert(55);
 	rbt3->Insert(50);
 	rbt3->Insert(49);
-	rbt3->Insert(59);
+	rbt3->Insert(59);*/
 	
 
 	/*
@@ -342,18 +355,20 @@ int main(){
 	rbt3->Insert(8);
 	rbt3->Insert(15);*/
 	
+	/*
 	cout << "Pre-rotation tree: " << rbt3->ToPrefixString() << endl; 
 	
 	rbt3->LeftRotation(rbt3->GetNode(22)); 
 	
-	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; 
+	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; */
 	
 
+/*
 	TestSimpleConstructor();
 	TestGetUncle();
 	TestInsertFirstNode();
 	TestInsertSecondNode();
-	TestInsertThirdNode(); 
+	TestInsertThirdNode(); */
 	
 	
 	/*
