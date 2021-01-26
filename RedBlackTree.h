@@ -32,8 +32,13 @@ class RedBlackTree{
         std::string ToPrefixString() const {return PrefixString(root);};
         std::string ToPostfixString() const {return PostfixString(root);};
 
-        void LeftRotation(RBTNode* rbn);
-        void RightRotation(RBTNode* rbn);
+		void rlRotate(RBTNode* currNode); 
+		void lrRotate(RBTNode* currNode); 
+		void llRotate(RBTNode* currNode); 
+		void rrRotate(RBTNode* currNode); 
+       
+        //void LeftRotation(RBTNode* rbn);
+        //void RightRotation(RBTNode* rbn);
         void FlipColor(RBTNode* rbn); // may need more coloring methods
         RBTNode* GetUncle(RBTNode* rbn);
         RBTNode* GetNode(int x); 

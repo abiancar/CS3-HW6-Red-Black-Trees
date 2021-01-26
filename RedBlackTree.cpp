@@ -21,8 +21,8 @@ RedBlackTree::~RedBlackTree()
 2) If tree is not empty, insert the newNode as leaf node with color red
 3) If the parent of newNode is black then exit from the operation
 4) If the parent of newNode is Red then check the color of parent's sibling
-5) If uncle is colored black or null then make suitable rotation and recolor it
-6) If uncle is colorded red then perform recolor. Repeat the same until tree becomes proper red black tree 
+	5) If uncle is colored black or null then make suitable rotation and recolor it
+	6) If uncle is colorded red then perform recolor. Repeat the same until tree becomes proper red black tree 
 */
 
 void RedBlackTree::Insert(int x)
@@ -93,7 +93,6 @@ void RedBlackTree::Insert(int x)
 
         // 4 :If the parent of newNode is Red then check the color of uncle
         else if(child->parent->color == red){  
-            cout << "STEP 4 Executing " << endl;
             
             // if the child is on the left side and does not have an uncle 
             // we have to right rotate of the parent of the child 
@@ -334,7 +333,7 @@ RBTNode* RedBlackTree::GetNode(int x)
 	
 }
 
-// Working 
+/*
 void RedBlackTree::LeftRotation(RBTNode* currNode){ 
     //the curr node's parent is going to change their son to the currNode's left child
     RBTNode* father = currNode->parent;
@@ -357,17 +356,47 @@ void RedBlackTree::LeftRotation(RBTNode* currNode){
     // have the adopted child become the CurrNode's son
     adoptedChild->parent = currNode;
     currNode->right = adoptedChild;
-}
+}*/
 
 // Working
-void RedBlackTree::RightRotation(RBTNode* currNode){ 
+void RedBlackTree::rrRotate(RBTNode* currNode)
+{ 
+	root = currNode->right; 
+	currNode->right = root->left; 
+	root->left = currNode; 
+}
+
+void RedBlackTree::rlRotate(RBTNode* currNode)
+{
+	root = currNode->right; 
+	currNode->right = root->left; 
+	root->left = currNode; 
 	
+	llRotate(currNode); 
+}
+
+void RedBlackTree::llRotate(RBTNode* currNode)
+{
+	root = currNode->left; 
+	currNode->left = root->right; 
+	root->right = currNode; 
+} 
+
+void RedBlackTree::lrRotate(RBTNode* currNode)
+{}
+
+/*
+void RedBlackTree::RightRrightotation(RBTNode* currNode){ 
+
+
 	// if the current node IS the root 
 	if (currNode == root)
 	{	
-		// currNode's left child becomes the root 
-		root = currNode->left; 
-		// root is now 15 
+		root = currNode->left;  
+		currNode->left = root->right; 
+		root->right = currNode; 
+	}
+		
 		//currNode becomes the right child of the root 
 		root->right = currNode; 
 		// right child of the root is now 30 
@@ -376,16 +405,17 @@ void RedBlackTree::RightRotation(RBTNode* currNode){
 		
 		root->right->parent = root; 
 		
-	/*
+	
 		currNode->parent->parent = currNode;
 
 		// adopted child becomes 30 
 		currNode->right = currNode->parent;
-		//currNode->parent = nullptr; */
-	}
+		//currNode->parent = nullptr; 
+		
 	// after the rotation the parent of the child becomes the root 
 	
     //the curr node's parent is going to change their son to the currNode's left child
+    
     RBTNode* father = currNode->parent;
     RBTNode* leftChild = currNode->left;
     RBTNode* adoptedChild = leftChild->right;
@@ -407,6 +437,7 @@ void RedBlackTree::RightRotation(RBTNode* currNode){
     adoptedChild->parent = currNode;
     currNode->left = adoptedChild;
 }
+*/
 
 void RedBlackTree::FlipColor(RBTNode* rbn){ //requires testing
     if(rbn->color == 0){

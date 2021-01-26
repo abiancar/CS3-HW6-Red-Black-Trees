@@ -49,7 +49,63 @@ void TestInsertSecondNode(){
 	cout << "PASSED!" << endl << endl;
 }
 
+void TestRotate()
+{
+	cout << "Testing Rotate..." << endl;
+	RedBlackTree *rbt = new RedBlackTree();
+	
+	// LEFT LEFT CASE 
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(10); 
+	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	rbt->llRotate(rbt->GetNode(30)); 
+	cout << "rbt after: "  << rbt->ToPrefixString() << endl;
+	
+	delete rbt;
+	
+	cout << "Left left case handled" << endl;
+	
+	// RIGHT RIGHT CASE 
+	rbt = new RedBlackTree(); 
+	rbt->Insert(30);
+	rbt->Insert(45);
+	rbt->Insert(50);
+	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	rbt->rrRotate(rbt->GetNode(30)); 
+	cout << "rbt after: "  << rbt->ToPrefixString() << endl; 
 
+	delete rbt;
+	
+	cout << "Right right case handled" << endl;
+	
+	// LEFT RIGHT CASE 
+	rbt = new RedBlackTree(); 
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(20); 
+	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	rbt->lrRotate(rbt->GetNode(30)); 
+	cout << "rbt after 20 15 30: "  << rbt->ToPrefixString() << endl; 
+
+	delete rbt;
+	
+	cout << "Left right case handled" << endl;
+	
+	// RIGHT LEFT CASE 
+	rbt = new RedBlackTree(); 
+	rbt->Insert(30);
+	rbt->Insert(45);
+	rbt->Insert(40); 
+	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	rbt->rlRotate(rbt->GetNode(30)); 
+	cout << "rbt after 40 30 45: "  << rbt->ToPrefixString() << endl; 
+
+	delete rbt;
+	
+	cout << "Right left case handled" << endl;
+}
+	
 void TestInsertThirdNode(){
 	
 	
@@ -59,6 +115,8 @@ void TestInsertThirdNode(){
 	rbt->Insert(15);
 	rbt->Insert(10); // Left Left
 	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	rbt->llRotate(rbt->GetNode(30)); 
+	cout << "rbt after: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B15  R10  R30 ");
 	delete rbt;
 	
@@ -270,7 +328,11 @@ void TestGetUncle(){
 }
 
 int main(){
+	
+	
+	TestRotate();
 
+	/*
 	RedBlackTree rbt = RedBlackTree();
 	
 	rbt.Insert(30);
@@ -279,37 +341,10 @@ int main(){
 	
 	cout << "Pre-rotation: " << rbt.ToPrefixString() << endl; 
 	
-	rbt.RightRotation(rbt.GetNode(30)); 
+	//rbt.llrotation(rbt.GetNode(30)); 
 	
-	cout << "Post-rotation: " << rbt.ToPrefixString() << endl; 
+	//cout << "Post-rotation: " << rbt.ToPrefixString() << endl; 
 	
-	
-	/*
-	rbt.Insert(530);
-	cout <<"A" << endl; 
-	rbt.Insert(1); 
-	cout <<"B" << endl; 
-	cout << "INFIX: " << rbt.ToInfixString() << endl;
-
-
-
-	rbt.Insert(4);
-	cout << "INFIX: " << rbt.ToInfixString() << endl;
-
-	rbt.Insert(0);
-	rbt.Insert(5000);
-	cout <<"C" << endl; 
-	rbt.Insert(8487866);
-	
-	cout << "Size: " << rbt.Size() << endl;
-	cout << "min: " << rbt.GetMin() << endl; 
-	cout << "max: " << rbt.GetMax() << endl; 
-	cout << "Contains 1: (0 false, 1 true)  " << rbt.Contains(1) << endl;
-	cout << "Contains 8487866: (0 false, 1 true)" << rbt.Contains(8487866) << endl;
-	cout << "Contains 124: (0 false, 1 true)" << rbt.Contains(124) << endl;
-	cout << "INFIX: " << rbt.ToInfixString() << endl;*/
-	
-	/*
 	RedBlackTree rbt2 = RedBlackTree();
 
 	rbt2.Insert(5);
@@ -362,16 +397,13 @@ int main(){
 	
 	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; */
 	
-
-/*
+	/*
 	TestSimpleConstructor();
 	TestGetUncle();
 	TestInsertFirstNode();
 	TestInsertSecondNode();
-	TestInsertThirdNode(); */
+	TestInsertThirdNode();
 	
-	
-	/*
 	TestInsertFourthNode();
 	TestInsertFifthNode();
 
