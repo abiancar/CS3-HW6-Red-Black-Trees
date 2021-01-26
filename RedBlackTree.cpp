@@ -82,20 +82,26 @@ void RedBlackTree::Insert(int x)
                 else{
                     parent = child;
                     child = parent->right;
-                }
 
+                }
+                // child->parent = parent;
+                // parent = child->parent;
             }
         }
 
         child = newNode;
         child->parent = parent;
+        if(child->data < parent-> data){
+            parent->left = child;
+        }else{
+            parent->right = child;
+        }
 
 
 
         cout << "CURRENT NODE DATA: " << child->data << endl;
         cout << "CURRENT NODE's PARENT DATA" << child->parent->data << endl;
 
-        cout << "ROOT'S LEFT CHILD: " << this->root->left->data << endl;
 
         // child-> parent = parent; // parent is still being stored at this point so we can do this*/
         this->numItems++;
@@ -132,8 +138,6 @@ bool RedBlackTree::Contains(int target) // FIXME: Prolly doesn't work yet
         }
     }
     return false;
-
-
 }
 
 
@@ -194,7 +198,7 @@ string RedBlackTree::InfixString(RBTNode* currNode)
 	return infixStr; 
 }
 
-/*
+
 string RedBlackTree::PrefixString(RBTNode* a)
 {
 	string s = "";
@@ -272,4 +276,4 @@ void RedBlackTree::FLipColor(RBTNode* rbn){ //requires testing
         rbn->color =0;
     }
 
-}*/
+}

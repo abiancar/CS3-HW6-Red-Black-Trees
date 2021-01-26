@@ -28,14 +28,14 @@ class RedBlackTree{
         int Size();
         
         
-        std::string ToInfixString() const {return InfixString(root);};/*
+        std::string ToInfixString() const {return InfixString(root);};
         std::string ToPrefixString() const {return PrefixString(root);};
         std::string ToPostfixString() const {return PostfixString(root);};
 
         void LeftRotation(RBTNode* rbn);
         void RightRotation(RBTNode* rbn);
         void FLipColor(RBTNode* rbn); // may need more coloring methods
-        RBTNode* GetUncle(RBTNode* rbn);*/
+        RBTNode* GetUncle(RBTNode* rbn);
 
 //	private:
         RBTNode *root;

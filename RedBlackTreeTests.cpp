@@ -245,16 +245,19 @@ int main(){
 	cout <<"A" << endl; 
 	rbt.Insert(1); 
 	cout <<"B" << endl; 
-
 	rbt.Insert(4);
+	rbt.Insert(0);
+	rbt.Insert(5000);
 	cout <<"C" << endl; 
-	// rbt.Insert(0);
+	rbt.Insert(8487866);
 	
 	cout << "Size: " << rbt.Size() << endl;
 	cout << "min: " << rbt.GetMin() << endl; 
 	cout << "max: " << rbt.GetMax() << endl; 
 	cout << "Contains 1: (0 false, 1 true)  " << rbt.Contains(1) << endl;
-	
+	cout << "Contains 8487866: (0 false, 1 true)" << rbt.Contains(8487866) << endl;
+	cout << "Contains 124: (0 false, 1 true)" << rbt.Contains(124) << endl;
+	// cout << "INFIX: " << rbt.ToInfixString();
 	 /*
 	TestSimpleConstructor();
 	
