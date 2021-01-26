@@ -52,7 +52,7 @@ void TestInsertSecondNode(){
 
 void TestInsertThirdNode(){
 	
-	/*
+	
 	cout << "Testing Insert Third Node..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
 	rbt->Insert(30);
@@ -233,6 +233,42 @@ void TestGetMinimumMaximum(){
 }
 
 
+void TestGetUncle(){
+	cout << "Testing GetUncle()" << endl;
+	
+	RedBlackTree rbt2 = RedBlackTree();
+
+	rbt2.Insert(5);
+	rbt2.Insert(3);
+	rbt2.Insert(1);
+	rbt2.Insert(4);
+	rbt2.Insert(8);
+	rbt2.Insert(7);
+	rbt2.Insert(9);
+
+	try{
+		rbt2.GetUncle(rbt2.GetNode(5));
+		assert(false);
+	}
+	catch(invalid_argument& e){
+	}
+
+
+	try{
+		rbt2.GetUncle(rbt2.GetNode(3));
+		assert(false);
+	}
+	catch(invalid_argument& e){
+	}
+
+	// two ndoes share that share the same uncle should return the same uncle
+	assert(rbt2.GetUncle(rbt2.GetNode(1))->data == 8);
+	assert(rbt2.GetUncle(rbt2.GetNode(4))->data == 8);
+
+
+	cout << "Passed" << endl;
+}
+
 int main(){
 
 	RedBlackTree rbt = RedBlackTree();
@@ -241,7 +277,13 @@ int main(){
 	cout <<"A" << endl; 
 	rbt.Insert(1); 
 	cout <<"B" << endl; 
+	cout << "INFIX: " << rbt.ToInfixString() << endl;
+
+
+
 	rbt.Insert(4);
+	cout << "INFIX: " << rbt.ToInfixString() << endl;
+
 	rbt.Insert(0);
 	rbt.Insert(5000);
 	cout <<"C" << endl; 
@@ -308,11 +350,13 @@ int main(){
 	
 
 	TestSimpleConstructor();
-	
+	TestGetUncle();
 	TestInsertFirstNode();
-
-	TestInsertSecondNode();/*
+	TestInsertSecondNode();
 	TestInsertThirdNode(); 
+	
+	
+	/*
 	TestInsertFourthNode();
 	TestInsertFifthNode();
 

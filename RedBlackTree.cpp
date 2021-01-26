@@ -17,7 +17,7 @@ RedBlackTree::~RedBlackTree()
 }
 
 /*
-1) if tree is empty, insert the newNode as Root node with color black and exit from operation
+
 2) If tree is not empty, insert the newNode as leaf node with color red
 3) If the parent of newNode is black then exit from the operation
 4) If the parent of newNode is Red then check the color of parent's sibling
@@ -26,43 +26,25 @@ RedBlackTree::~RedBlackTree()
 */
 
 void RedBlackTree::Insert(int x)
-{
-	//FIX ME:
-    // we should catch an error the user tries to insert an item that already exists!
-    //if this->Contains(x) -> throw error or exit program
-    
-    /*
-    try
-    {
-		if (this->Contains(x))
-		{
-			throw exception(); 
-		}
-	}
-	catch (exception())
-	{
-		cout << "The item you are trying to insert already exists in the tree." << endl; 
-	}*/
-    
-    // if the size of the tree is 0
+{    
+    int red = 1;
+    int black = 0;
+    // 1: If tree is empty, insert the newNode as Root node with color black and exit from operation
 	if (numItems == 0) // create a node, make the node the root node 
 	{
 		RBTNode* newNode = new RBTNode(); 
-		newNode->color = 0; // set to black
+		newNode->color = black; // set to black
         newNode->data = x; 
 		this->root = newNode; 
 		numItems += 1; 
 	}
 	
-    else{ // tree is not empty, insert newNode as leaf node with color red
-		
-	    //2) If tree is not empty, insert the newNode as leaf node with color red
-    	//3) If the parent of newNode is black then exit from the operation
-	    //4) If the parent of newNode is Red then check the color of parent's sibling
-	
+    // 2 : If tree is not empty, insert the newNode as leaf node with color red
+    else{ // everything inside this else = if tree != empty 
+
         RBTNode* newNode = new RBTNode();
         newNode->data = x;
-        newNode->color = 1; //set color as red
+        newNode->color = red; //set color as red
         
         //RBTNode* parent =  this->root;
         RBTNode* parent = this->root;
@@ -94,27 +76,46 @@ void RedBlackTree::Insert(int x)
 
         child = newNode;
         child->parent = parent;
+
         if(child->data < parent-> data){
             parent->left = child;
         }else{
             parent->right = child;
         }
-
-
-
-        //cout << "CURRENT NODE DATA: " << child->data << endl;
-        //cout << "CURRENT NODE's PARENT DATA" << child->parent->data << endl;
-
-
-        // child-> parent = parent; // parent is still being stored at this point so we can do this*/
         this->numItems++;
-        //cout << "HERE I AM" << endl;
-        /*
-        if(currNode->color != 0){ // if the new node's parent is red
-            //check uncle color
-		}*/
+        
+        // We have just inserted a new RED leaf, finished with Step# 2
+
+
+        // 3: If the parent of newNode is black then exit from the operation
+
+        //what is the color of the parent of the newNode
+        //WHILE LOOP STARTING HERE?
+
+        if(child->parent->color == black){
+        }
+
+        // 4 :If the parent of newNode is Red then check the color of uncle
+        else if(child->parent->color == red){  
+            cout << "STEP 4 Executing " << endl;
+            
+            // 5: if uncle == black or null, make suitable rotation and recolor the uncle
+            // if(this->GetUncle(child)->color == black || this->GetUncle(child) == nullptr){
+            //     cout << "STEP 5 WORKIN" << endl;
+            //     //do some stuff
+
+            // }
+            // 6: if uncle is red, make uncle black
+            if(this->GetUncle(child)->color == red){
+                this->FlipColor(this->GetUncle(child)); //flip the uncle's color
+                //do otha stuff
+            }
+
+            // 7? : Repeat till we get the correct tree
+        }
+
+        
     }
-	
 }
 
 bool RedBlackTree::Contains(int target) 
@@ -274,7 +275,22 @@ string RedBlackTree::PostfixString(RBTNode* currNode)
 // this function, it shouldn't work and catch that error 
 // if a node does NOT have an uncle
 // make sure we catch that exception
+
 RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){ 
+    // if the current node is a root
+    // there is no uncle 
+    if (rbn == this->root)
+    {
+    throw invalid_argument("This is the root, no uncle possible"); 
+    }
+
+    // if the grandfather does not exist 
+    // there is no uncle 
+    if (rbn->parent->parent == nullptr)
+    {
+    throw invalid_argument("This node has no grandfather, no uncle possible"); 
+    } 
+        
     RBTNode* father = rbn->parent;
     RBTNode* grandFather = father->parent;
 
@@ -360,7 +376,7 @@ void RedBlackTree::RightRotation(RBTNode* currNode){
     currNode->left = adoptedChild;
 }
 
-void RedBlackTree::FLipColor(RBTNode* rbn){ //requires testing
+void RedBlackTree::FlipColor(RBTNode* rbn){ //requires testing
     if(rbn->color == 0){
         rbn->color =1;
     }else{
