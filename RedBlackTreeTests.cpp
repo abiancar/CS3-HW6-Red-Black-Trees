@@ -257,7 +257,7 @@ int main(){
 	cout << "Contains 1: (0 false, 1 true)  " << rbt.Contains(1) << endl;
 	cout << "Contains 8487866: (0 false, 1 true)" << rbt.Contains(8487866) << endl;
 	cout << "Contains 124: (0 false, 1 true)" << rbt.Contains(124) << endl;
-	// cout << "INFIX: " << rbt.ToInfixString();
+	cout << "INFIX: " << rbt.ToInfixString() << endl;
 	 /*
 	TestSimpleConstructor();
 	

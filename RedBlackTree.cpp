@@ -114,7 +114,7 @@ void RedBlackTree::Insert(int x)
 	
 }
 
-bool RedBlackTree::Contains(int target) // FIXME: Prolly doesn't work yet
+bool RedBlackTree::Contains(int target) 
 {
     // start at the root node, set it to currNode
     // if currNOde = target ... true
@@ -168,31 +168,31 @@ int RedBlackTree::Size()
 string RedBlackTree::InfixString(RBTNode* currNode)
 {
     // take a node
-    // print the node
-    // if the left node is not null, print the left
-    // if the right node is not null, print the right
+    // print the left hand side of the node
+    // print the current node
+    // print the right node
     
     // emptry RBT scenario
-    cout << "A" << endl;
 
     if(currNode == nullptr){
        return "";
     }
-    cout << "B" << endl;
 
     string colorString;
-    string infixStr;
+    string infixStr = "";
+    string nodeString;
     int color = currNode->color;
-    cout << "C" << endl;
+
     if(color == 0){
-        colorString = "B";
+        colorString = " B";
     }
     else{
-		cout << currNode->left->data << endl; 
-        colorString = "R";
+        colorString = " R";
     }
 
-    infixStr = infixStr + InfixString(currNode->left) + colorString + to_string(currNode->data) + InfixString(currNode->right);
+    nodeString = colorString + to_string(currNode->data) + "";
+
+    infixStr = infixStr + InfixString(currNode->left) + nodeString + InfixString(currNode->right);
 
     
 	return infixStr; 
