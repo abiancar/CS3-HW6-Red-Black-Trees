@@ -53,41 +53,53 @@ void RedBlackTree::Insert(int x)
 	
     else{ // tree is not empty, insert newNode as leaf node with color red
 		
-	//2) If tree is not empty, insert the newNode as leaf node with color red
-	//3) If the parent of newNode is black then exit from the operation
-	//4) If the parent of newNode is Red then check the color of parent's sibling
+	    //2) If tree is not empty, insert the newNode as leaf node with color red
+    	//3) If the parent of newNode is black then exit from the operation
+	    //4) If the parent of newNode is Red then check the color of parent's sibling
 	
         RBTNode* newNode = new RBTNode();
         newNode->data = x;
         newNode->color = 1; //set color as red
         
         //RBTNode* parent =  this->root;
-        RBTNode* currNode = this->root;
+        RBTNode* parent = this->root;
+        RBTNode* child;
 
-        if(x < currNode->data){          // if the child should be on the left
-			cout << "Hello" << endl; 
-			currNode = currNode->left; 
+		if(x < parent->data){
+            child = parent->left;
+        }
+        else{
+            child = parent->right;
+        }
+        // we know that the child is not in a while loop
 
-        }
-        else{                          // if the child should be on the right
-            currNode = currNode->right; 
-        }
-   
-		/*
-        while(child!= nullptr){
-			cout << "Hello2" << endl; 
-            if(x < parent->data){          // if the child should be on the left
-                child = parent->left;
-                parent = child;
-            }
-            else{                          // if the child should be on the right
-                child = parent->right;
-                parent = child;
+        if(child != nullptr){
+            while(child != nullptr){
+                if(x < child->data){
+                    parent = child;
+                    child = parent->left;                    
+                }
+                else{
+                    parent = child;
+                    child = parent->right;
+                }
+
             }
         }
+
         child = newNode;
-        child-> parent = parent; // parent is still being stored at this point so we can do this*/
+        child->parent = parent;
+
+
+
+        cout << "CURRENT NODE DATA: " << child->data << endl;
+        cout << "CURRENT NODE's PARENT DATA" << child->parent->data << endl;
+
+        cout << "ROOT'S LEFT CHILD: " << this->root->left->data << endl;
+
+        // child-> parent = parent; // parent is still being stored at this point so we can do this*/
         this->numItems++;
+        cout << "HERE I AM" << endl;
         /*
         if(currNode->color != 0){ // if the new node's parent is red
             //check uncle color
@@ -104,9 +116,11 @@ bool RedBlackTree::Contains(int target) // FIXME: Prolly doesn't work yet
     //       if target is larger than currNode set currNode to right child
     // if the current node has no children, return false
     RBTNode* currNode = this->root;
-    if(currNode->data == target){return true;};
-    while(currNode->left != nullptr && currNode->right != nullptr){
     
+    if(currNode == nullptr){return false;};
+    if(currNode->data == target){return true;};
+    
+    while(currNode != nullptr){
         if(currNode->data == target){
             return true;
         }
@@ -117,8 +131,8 @@ bool RedBlackTree::Contains(int target) // FIXME: Prolly doesn't work yet
             currNode = currNode->right;
         }
     }
-    cout << endl;
     return false;
+
 
 }
 
@@ -155,17 +169,17 @@ string RedBlackTree::InfixString(RBTNode* currNode)
     // if the right node is not null, print the right
     
     // emptry RBT scenario
-    cout << "HELLO" << endl;
+    cout << "A" << endl;
 
     if(currNode == nullptr){
        return "";
     }
-    cout << "HELLO" << endl;
+    cout << "B" << endl;
 
     string colorString;
     string infixStr;
     int color = currNode->color;
-    cout << "HELLO" << endl;
+    cout << "C" << endl;
     if(color == 0){
         colorString = "B";
     }

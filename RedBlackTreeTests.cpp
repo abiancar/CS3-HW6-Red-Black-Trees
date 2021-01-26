@@ -241,13 +241,19 @@ int main(){
 
 	RedBlackTree rbt = RedBlackTree();
 	
-	rbt.Insert(53); 
+	rbt.Insert(530);
+	cout <<"A" << endl; 
 	rbt.Insert(1); 
+	cout <<"B" << endl; 
+
+	rbt.Insert(4);
+	cout <<"C" << endl; 
+	// rbt.Insert(0);
 	
 	cout << "Size: " << rbt.Size() << endl;
 	cout << "min: " << rbt.GetMin() << endl; 
 	cout << "max: " << rbt.GetMax() << endl; 
-	//cout << rbt.ToInfixString() << endl;
+	cout << "Contains 1: (0 false, 1 true)  " << rbt.Contains(1) << endl;
 	
 	 /*
 	TestSimpleConstructor();
