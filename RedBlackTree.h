@@ -36,14 +36,15 @@ class RedBlackTree{
         void RightRotation(RBTNode* rbn);
         void FLipColor(RBTNode* rbn); // may need more coloring methods
         RBTNode* GetUncle(RBTNode* rbn);
+        RBTNode* GetNode(int x); 
 
 //	private:
         RBTNode *root;
         unsigned long long int numItems = 0;
 
-        static std::string InfixString(RBTNode* a);
-        static std::string PrefixString(RBTNode* a); 
-        static std::string PostfixString(RBTNode* a); 
+        static std::string InfixString(RBTNode* currNode);
+        static std::string PrefixString(RBTNode* currNode); 
+        static std::string PostfixString(RBTNode* currNode); 
 
 };
 

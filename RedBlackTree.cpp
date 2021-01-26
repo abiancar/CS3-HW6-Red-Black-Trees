@@ -199,19 +199,78 @@ string RedBlackTree::InfixString(RBTNode* currNode)
 }
 
 
-string RedBlackTree::PrefixString(RBTNode* a)
+string RedBlackTree::PrefixString(RBTNode* currNode)
 {
-	string s = "";
-	return s; 
+    // take a node
+    // print the left hand side of the node
+    // print the current node
+    // print the right node
+    
+    // emptry RBT scenario
+
+    if(currNode == nullptr){
+       return "";
+    }
+
+    string colorString;
+    string prefixStr = "";
+    string nodeString;
+    int color = currNode->color;
+
+    if(color == 0){
+        colorString = " B";
+    }
+    else{
+        colorString = " R";
+    }
+
+    nodeString = colorString + to_string(currNode->data) + "";
+
+    prefixStr = prefixStr + nodeString + PrefixString(currNode->left) + PrefixString(currNode->right);
+
+    
+	return prefixStr; 
 }
 
-string RedBlackTree::PostfixString(RBTNode* a)
+string RedBlackTree::PostfixString(RBTNode* currNode)
 {
-	string s = "";
-	return s; 
+    // take a node
+    // print the left hand side of the node
+    // print the current node
+    // print the right node
+    
+    // emptry RBT scenario
+
+    if(currNode == nullptr){
+       return "";
+    }
+
+    string colorString;
+    string postfixStr = "";
+    string nodeString;
+    int color = currNode->color;
+
+    if(color == 0){
+        colorString = " B";
+    }
+    else{
+        colorString = " R";
+    }
+
+    nodeString = colorString + to_string(currNode->data) + "";
+
+    postfixStr = postfixStr + PostfixString(currNode->left) + PostfixString(currNode->right) + nodeString;
+
+    
+	return postfixStr; 
 }
 
-RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){ //requires testing but should work
+// WORKING ?!!
+// if we get the root node, and we try to call
+// this function, it shouldn't work and catch that error 
+// if a node does NOT have an uncle
+// make sure we catch that exception
+RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){ 
     RBTNode* father = rbn->parent;
     RBTNode* grandFather = father->parent;
 
@@ -219,6 +278,32 @@ RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){ //requires testing but should wor
         return grandFather->right;
     }
     else{return grandFather->left;};
+}
+
+RBTNode* RedBlackTree::GetNode(int x)
+{
+	RBTNode* currNode = this->root;
+
+    if(currNode->data == x){return currNode;};
+    
+    while(currNode != nullptr)
+    {
+        if(currNode->data == x)
+        {
+			return currNode; 
+        }
+        else if(x < currNode->data)
+        {
+            currNode = currNode->left;
+        }
+        else
+        {
+            currNode = currNode->right;
+        }
+    }
+    
+    return currNode; 
+	
 }
 
 void RedBlackTree::LeftRotation(RBTNode* currNode){ // may be bugs, simply changed left to right from sister method

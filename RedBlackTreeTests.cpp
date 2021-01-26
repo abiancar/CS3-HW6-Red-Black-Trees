@@ -258,6 +258,26 @@ int main(){
 	cout << "Contains 8487866: (0 false, 1 true)" << rbt.Contains(8487866) << endl;
 	cout << "Contains 124: (0 false, 1 true)" << rbt.Contains(124) << endl;
 	cout << "INFIX: " << rbt.ToInfixString() << endl;
+	
+	RedBlackTree rbt2 = RedBlackTree();
+
+	rbt2.Insert(5);
+	rbt2.Insert(3);
+	rbt2.Insert(1);
+	rbt2.Insert(4);
+	rbt2.Insert(8);
+	rbt2.Insert(7);
+	rbt2.Insert(9);
+	
+	cout << "INFIX: " << rbt2.ToInfixString() << endl;
+	cout << "PREFIX: " << rbt2.ToPrefixString() << endl;
+	cout << "POSTFIX: " << rbt2.ToPostfixString() << endl;
+	
+	cout << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(1))) << endl;
+	cout << "shouldn't have an uncle: " << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(3))) << endl;
+	cout << rbt2.InfixString(rbt2.GetNode(3)) << endl; 
+	
+	
 	 /*
 	TestSimpleConstructor();
 	
