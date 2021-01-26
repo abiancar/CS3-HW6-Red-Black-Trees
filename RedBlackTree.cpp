@@ -94,25 +94,15 @@ void RedBlackTree::Insert(int x)
         // 4 :If the parent of newNode is Red then check the color of uncle
         else if(child->parent->color == red){  
             
-            // if the child is on the left side and does not have an uncle 
-            // we have to right rotate of the parent of the child 
-            // the parent becomes the root node 
-            //       30 
-            //       /
-            //      15
-            //      /
-            //     10
+            // 5-1: if the uncle is null, make suitable rotation 
             if (this->GetUncle(child) ==  nullptr)
             {
-				// rotation 
 				
 			}
 			
-			// i
-            
             else 
             {
-				// 5: if uncle == black or null, make suitable rotation and recolor the uncle
+				// 5-2: if uncle is black, make suitable rotation and recolor the uncle
 				if (this->GetUncle(child)->color == black)
 				{
 					cout << "yup" << endl; 
@@ -359,31 +349,47 @@ void RedBlackTree::LeftRotation(RBTNode* currNode){
 }*/
 
 // Working
-void RedBlackTree::rrRotate(RBTNode* currNode)
+RBTNode* RedBlackTree::rrRotate(RBTNode* currNode)
 { 
-	root = currNode->right; 
-	currNode->right = root->left; 
-	root->left = currNode; 
-}
-
-void RedBlackTree::rlRotate(RBTNode* currNode)
-{
+	//RBTNode* temp; 
 	root = currNode->right; 
 	currNode->right = root->left; 
 	root->left = currNode; 
 	
-	llRotate(currNode); 
+	return root; 
 }
 
-void RedBlackTree::llRotate(RBTNode* currNode)
+RBTNode* RedBlackTree::rlRotate(RBTNode* currNode)
 {
+	
+	RBTNode* temp; 
+	temp = currNode->right; 
+	currNode->right = llRotate(temp); 
+	
+	return rrRotate(currNode); 
+}
+
+RBTNode* RedBlackTree::llRotate(RBTNode* currNode)
+{
+	//RBTNode* temp; 
+	
 	root = currNode->left; 
 	currNode->left = root->right; 
 	root->right = currNode; 
+	
+	return root; 
 } 
 
-void RedBlackTree::lrRotate(RBTNode* currNode)
-{}
+RBTNode* RedBlackTree::lrRotate(RBTNode* currNode)
+{
+	
+	RBTNode* temp; 
+	temp = currNode->left; 
+	currNode->left = rrRotate(temp); 
+	
+	return llRotate(currNode); 
+	
+}
 
 /*
 void RedBlackTree::RightRrightotation(RBTNode* currNode){ 

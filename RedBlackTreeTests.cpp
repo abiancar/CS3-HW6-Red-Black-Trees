@@ -58,52 +58,52 @@ void TestRotate()
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(10); 
-	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	rbt->llRotate(rbt->GetNode(30)); 
-	cout << "rbt after: "  << rbt->ToPrefixString() << endl;
+	cout << "Left left case handled" << endl;
+	cout << "rbt after 15 10 30: "  << rbt->ToPrefixString() << endl;
 	
 	delete rbt;
-	
-	cout << "Left left case handled" << endl;
 	
 	// RIGHT RIGHT CASE 
 	rbt = new RedBlackTree(); 
 	rbt->Insert(30);
 	rbt->Insert(45);
 	rbt->Insert(50);
-	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	rbt->rrRotate(rbt->GetNode(30)); 
-	cout << "rbt after: "  << rbt->ToPrefixString() << endl; 
+	cout << "Right right case handled" << endl;
+	cout << "rbt after 45 30 50: "  << rbt->ToPrefixString() << endl; 
 
 	delete rbt;
-	
-	cout << "Right right case handled" << endl;
 	
 	// LEFT RIGHT CASE 
 	rbt = new RedBlackTree(); 
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(20); 
-	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	rbt->lrRotate(rbt->GetNode(30)); 
+	cout << "Left right case handled" << endl;
 	cout << "rbt after 20 15 30: "  << rbt->ToPrefixString() << endl; 
 
 	delete rbt;
 	
-	cout << "Left right case handled" << endl;
 	
 	// RIGHT LEFT CASE 
 	rbt = new RedBlackTree(); 
 	rbt->Insert(30);
 	rbt->Insert(45);
 	rbt->Insert(40); 
-	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	rbt->rlRotate(rbt->GetNode(30)); 
+	
+	cout << "Right left case handled" << endl;
 	cout << "rbt after 40 30 45: "  << rbt->ToPrefixString() << endl; 
 
 	delete rbt;
 	
-	cout << "Right left case handled" << endl;
+	cout << "PASSED! " << endl;
 }
 	
 void TestInsertThirdNode(){
@@ -397,11 +397,11 @@ int main(){
 	
 	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; */
 	
-	/*
+	
 	TestSimpleConstructor();
 	TestGetUncle();
 	TestInsertFirstNode();
-	TestInsertSecondNode();
+	TestInsertSecondNode();/*
 	TestInsertThirdNode();
 	
 	TestInsertFourthNode();
