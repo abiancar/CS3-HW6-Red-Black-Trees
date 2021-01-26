@@ -9,30 +9,30 @@ using namespace std;
 
 
 void TestSimpleConstructor(){
-	/*
+	
 	cout << "Testing Simple Constructor... " << endl;
 	RedBlackTree rbt = RedBlackTree();
 	//cout << "empty r-b-tree: " << rbt->ToInfixString() << endl;
-	assert(rbt.ToInfixString() == "");*/
+	assert(rbt.ToInfixString() == "");
 	
 	cout << "PASSED!"<< endl << endl;
 }
 
 
 void TestInsertFirstNode(){
-	/*
+
 	cout << "Testing Insert One Node..." << endl;
 	RedBlackTree rbt = RedBlackTree();
 	rbt.Insert(30);
-	//cout << "rbt: " << rbt->ToPrefixString() << endl;
-	assert(rbt.ToPrefixString() == " B30 ");*/
+	//cout << "rbt: " << rbt.ToPrefixString() << endl;
+	assert(rbt.ToPrefixString() == " B30 ");
 
 	cout << "PASSED!" << endl << endl;
 }
 
 
 void TestInsertSecondNode(){
-	/*
+
 	cout << "Testing Insert Second Node..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
 	rbt->Insert(30); // leak here
@@ -44,20 +44,21 @@ void TestInsertSecondNode(){
 	rbt->Insert(30);
 	rbt->Insert(45);
 	assert(rbt->ToPrefixString() == " B30  R45 ");	
-	delete rbt;*/
+	delete rbt;
 
 	cout << "PASSED!" << endl << endl;
 }
 
 
 void TestInsertThirdNode(){
+	
 	/*
 	cout << "Testing Insert Third Node..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(10); // Left Left
-	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B15  R10  R30 ");
 	delete rbt;
 	
@@ -76,14 +77,14 @@ void TestInsertThirdNode(){
 	delete rbt;
 	
 	// more tests go here
-	// consider some symmetry!
-	*/
+	// consider some symmetry!*/
 	
 	cout << "TESTS MISSING" << endl << endl;
 	cout << "PASSED!" << endl << endl;
 }
 
 void TestInsertFourthNode(){
+	
 	cout << "Testing Insert Fourth Node..." << endl;
 
 	cout << "TESTS MISSING" << endl << endl;
@@ -111,7 +112,7 @@ void TestInsertFifthNode(){
 
 
 void TestToStrings(){
-	/*
+
 	cout << "Testing ToString Methods..." << endl;
 
 	RedBlackTree rbt = RedBlackTree();
@@ -124,7 +125,7 @@ void TestToStrings(){
 
 	assert(rbt.ToPrefixString() == " B12  B7  R5  R11  B15  R13 ");
 	assert(rbt.ToInfixString() == " R5  B7  R11  B12  R13  B15 ");
-	assert(rbt.ToPostfixString() == " R5  R11  B7  R13  B15  B12 ");*/
+	assert(rbt.ToPostfixString() == " R5  R11  B7  R13  B15  B12 ");
 
 	cout << "PASSED!" << endl << endl;
 }
@@ -198,11 +199,6 @@ void TestCopyConstructor(){
 	cout << "PASSED!" << endl << endl;
 }
 
-
-
-
-
-
 void TestContains(){
 	/*
 	cout << "Testing Contains..." << endl;
@@ -274,16 +270,49 @@ int main(){
 	cout << "POSTFIX: " << rbt2.ToPostfixString() << endl;
 	
 	cout << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(1))) << endl;
-	cout << "shouldn't have an uncle: " << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(3))) << endl;
+	//cout << "shouldn't have an uncle: " << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(3))) << endl;
 	cout << rbt2.InfixString(rbt2.GetNode(3)) << endl; 
 	
+	RedBlackTree* rbt3 = new RedBlackTree(); 
 	
-	 /*
+	rbt3->Insert(40);
+	rbt3->Insert(22);
+	rbt3->Insert(15);
+	rbt3->Insert(12);
+	rbt3->Insert(17);
+	rbt3->Insert(31);
+	
+	rbt3->Insert(29);
+	rbt3->Insert(28);
+	rbt3->Insert(34);
+	rbt3->Insert(55);
+	rbt3->Insert(50);
+	rbt3->Insert(49);
+	rbt3->Insert(59);
+	
+
+	/*
+	rbt3->Insert(10);
+	rbt3->Insert(7);
+	rbt3->Insert(5);
+	rbt3->Insert(2);
+	rbt3->Insert(6);
+	rbt3->Insert(8);
+	rbt3->Insert(15);*/
+	
+	cout << "Pre-rotation tree: " << rbt3->ToPrefixString() << endl; 
+	
+	rbt3->LeftRotation(rbt3->GetNode(22)); 
+	
+	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; 
+	
+
 	TestSimpleConstructor();
 	
 	TestInsertFirstNode();
-	TestInsertSecondNode();
-	TestInsertThirdNode();
+
+	TestInsertSecondNode();/*
+	TestInsertThirdNode(); 
 	TestInsertFourthNode();
 	TestInsertFifthNode();
 

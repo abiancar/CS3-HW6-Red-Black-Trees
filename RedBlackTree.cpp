@@ -11,7 +11,10 @@ RedBlackTree::RedBlackTree()
 	// no action needed 
 }
 RedBlackTree::~RedBlackTree()
-{}
+{
+	// starting from the maximum
+	// delete the tree
+}
 
 /*
 1) if tree is empty, insert the newNode as Root node with color black and exit from operation
@@ -99,13 +102,13 @@ void RedBlackTree::Insert(int x)
 
 
 
-        cout << "CURRENT NODE DATA: " << child->data << endl;
-        cout << "CURRENT NODE's PARENT DATA" << child->parent->data << endl;
+        //cout << "CURRENT NODE DATA: " << child->data << endl;
+        //cout << "CURRENT NODE's PARENT DATA" << child->parent->data << endl;
 
 
         // child-> parent = parent; // parent is still being stored at this point so we can do this*/
         this->numItems++;
-        cout << "HERE I AM" << endl;
+        //cout << "HERE I AM" << endl;
         /*
         if(currNode->color != 0){ // if the new node's parent is red
             //check uncle color
@@ -190,7 +193,7 @@ string RedBlackTree::InfixString(RBTNode* currNode)
         colorString = " R";
     }
 
-    nodeString = colorString + to_string(currNode->data) + "";
+    nodeString = colorString + to_string(currNode->data) + " ";
 
     infixStr = infixStr + InfixString(currNode->left) + nodeString + InfixString(currNode->right);
 
@@ -224,7 +227,7 @@ string RedBlackTree::PrefixString(RBTNode* currNode)
         colorString = " R";
     }
 
-    nodeString = colorString + to_string(currNode->data) + "";
+    nodeString = colorString + to_string(currNode->data) + " ";
 
     prefixStr = prefixStr + nodeString + PrefixString(currNode->left) + PrefixString(currNode->right);
 
@@ -257,7 +260,7 @@ string RedBlackTree::PostfixString(RBTNode* currNode)
         colorString = " R";
     }
 
-    nodeString = colorString + to_string(currNode->data) + "";
+    nodeString = colorString + to_string(currNode->data) + " ";
 
     postfixStr = postfixStr + PostfixString(currNode->left) + PostfixString(currNode->right) + nodeString;
 
@@ -306,7 +309,8 @@ RBTNode* RedBlackTree::GetNode(int x)
 	
 }
 
-void RedBlackTree::LeftRotation(RBTNode* currNode){ // may be bugs, simply changed left to right from sister method
+// Working 
+void RedBlackTree::LeftRotation(RBTNode* currNode){ 
     //the curr node's parent is going to change their son to the currNode's left child
     RBTNode* father = currNode->parent;
     RBTNode* rightChild = currNode->right;
@@ -321,8 +325,8 @@ void RedBlackTree::LeftRotation(RBTNode* currNode){ // may be bugs, simply chang
     }
     rightChild->parent = father;
 
-    // have the left child become the currNode's father
-    rightChild->right = currNode;
+    // have the right child become the currNode's father
+    rightChild->left = currNode;
     currNode->parent = rightChild;
 
     // have the adopted child become the CurrNode's son
@@ -330,7 +334,8 @@ void RedBlackTree::LeftRotation(RBTNode* currNode){ // may be bugs, simply chang
     currNode->right = adoptedChild;
 }
 
-void RedBlackTree::RightRotation(RBTNode* currNode){ // requires testing
+// Working
+void RedBlackTree::RightRotation(RBTNode* currNode){ 
     //the curr node's parent is going to change their son to the currNode's left child
     RBTNode* father = currNode->parent;
     RBTNode* leftChild = currNode->left;
