@@ -176,7 +176,8 @@ string RedBlackTree::InfixString(RBTNode* currNode)
     // print the right node
     
     // emptry RBT scenario
-
+    // cout << "K" << endl;
+    // cout << currNode->data << " CURRNODE DATA " << endl;
     if(currNode == nullptr){
        return "";
     }
@@ -192,7 +193,7 @@ string RedBlackTree::InfixString(RBTNode* currNode)
     else{
         colorString = " R";
     }
-
+// cout << "O" << endl;
     nodeString = colorString + to_string(currNode->data) + " ";
 
     infixStr = infixStr + InfixString(currNode->left) + nodeString + InfixString(currNode->right);

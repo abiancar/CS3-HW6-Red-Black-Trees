@@ -39,7 +39,7 @@ class RedBlackTree{
         RBTNode* GetNode(int x); 
 
 //	private:
-        RBTNode *root;
+        RBTNode *root = nullptr;
         unsigned long long int numItems = 0;
 
         static std::string InfixString(RBTNode* currNode);
