@@ -126,7 +126,7 @@ void TestInsertThirdNode(){
 	rbt->Insert(25); // Right Left
 	cout << rbt->ToPrefixString() << endl;
 	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	//assert(rbt->ToPrefixString() == " B25  R15  R30 ");
+	assert(rbt->ToPrefixString() == " B25  R15  R30 ");
 	delete rbt;
 	
 	rbt = new RedBlackTree();

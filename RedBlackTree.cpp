@@ -105,8 +105,6 @@ void RedBlackTree::Insert(int x)
                 if( (child-> parent->parent)  ->left->left == child)
                 { 	// we need to do ll on child parent parent (granps)
 					RightRotation(child->parent->parent); 
-					child->color = red; 
-					child->parent->color = black; 
 					
 					
                 }
@@ -377,7 +375,7 @@ RBTNode* RedBlackTree::GetNode(int x)
 void RedBlackTree::LeftRotation(RBTNode* currNode)
 {
 	RBTNode* temp = currNode->right;
-	
+    
 	currNode->right = temp->left;
 	if (temp->left != nullptr)
 	{
@@ -386,9 +384,12 @@ void RedBlackTree::LeftRotation(RBTNode* currNode)
 	
 	temp->parent = currNode->parent;
 	
+
+    // if the currNode is root, change color with what is swapping with root
 	if (currNode->parent == nullptr)
 	{
 		this->root = temp;
+        this->ColorSwap(root,currNode);
 	}
 	else if (currNode == currNode->parent->left)
 	{
@@ -417,7 +418,10 @@ void RedBlackTree::RightRotation(RBTNode* currNode)
 	temp->parent = currNode->parent;
 	if (currNode->parent == nullptr)
 	{
+
 		this->root = temp;
+        this->ColorSwap(root,currNode);
+
 	}
 	else if (currNode == currNode->parent->right)
 	{
