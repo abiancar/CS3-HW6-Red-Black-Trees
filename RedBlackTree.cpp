@@ -73,19 +73,17 @@ void RedBlackTree::Insert(int x)
             parent->right = child;
         }
         this->numItems++; 
-        
-       // RBTNode* uncle = nullptr; 
-        //RBTNode* rUncle = nullptr; 
+        if (child->parent->color == black)
+        {
+		}
         // 4 :If the parent of newNode is Red then check the color of uncle
-		while(child->parent->color != black)
+		else if (child->parent->color == red)
         {  
-			//lUncle = child->parent->parent->left;
-			//rUncle = child->parent->parent->right; 
-            
             // 5: if the uncle is null or the uncle is black, make suitable rotation and recolor 
 			// NO UNCLE 
             if (this->GetUncle(child) ==  nullptr || this->GetUncle(child)->color == black)
             {
+			
 				// right right case 
 				if (child->parent == child->parent->parent->right)
 				{
@@ -115,29 +113,7 @@ void RedBlackTree::Insert(int x)
 
 					RightRotation(child->parent->parent);
 				}
-				
-				
-				/*
-                if(child == (child->parent->parent)->left->left)
-                { 	
-					RightRotation(child->parent->parent); 
-					
-                }
-                else if(child == (child-> parent->parent)->left->right)
-                { 
-					LeftRotation(child->parent); 
-					RightRotation(child->parent); 		
-                }
-                else if(child == (child-> parent->parent)->right->right)
-                { 
-					LeftRotation(child->parent->parent); 
-					
-                }                
-                else if(child == child->parent->parent->right->left)
-                {
-					RightRotation(child->parent); 
-					LeftRotation(child->parent); 
-				}*/
+             
 
 			}
 
@@ -155,11 +131,11 @@ void RedBlackTree::Insert(int x)
 			}
 			
 			 // 3: If the parent of newNode is black then exit from the operation
-			if (child == root) 
-			{
+			//if (child == root) 
+			//{
 				//root->color = black; 
-				break;
-			}
+				//break;
+			//}
 		}
 		
 		// 3: If the parent of newNode is black then exit from the operation
