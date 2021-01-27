@@ -74,15 +74,51 @@ void RedBlackTree::Insert(int x)
         }
         this->numItems++; 
         
+       // RBTNode* uncle = nullptr; 
+        //RBTNode* rUncle = nullptr; 
         // 4 :If the parent of newNode is Red then check the color of uncle
 		while(child->parent->color != black)
         {  
+			//lUncle = child->parent->parent->left;
+			//rUncle = child->parent->parent->right; 
             
             // 5: if the uncle is null or the uncle is black, make suitable rotation and recolor 
 			// NO UNCLE 
             if (this->GetUncle(child) ==  nullptr || this->GetUncle(child)->color == black)
             {
-                if(child == (child-> parent->parent)->left->left)
+				// right right case 
+				if (child->parent == child->parent->parent->right)
+				{
+					//uncle = child->parent->parent->left; 
+					
+					if (child == child->parent->left) 
+					{
+						// right left case 
+						child = child->parent;
+						RightRotation(child); 
+					}
+					
+					LeftRotation(child->parent->parent); 
+				}
+				
+				// left left case
+				else if (child->parent == child->parent->parent->left)
+				{
+					//uncle = child->parent->parent->right; 
+					
+					if (child == child->parent->right)
+					{
+						// left right case
+						child = child->parent;
+						LeftRotation(child);
+					}
+
+					RightRotation(child->parent->parent);
+				}
+				
+				
+				/*
+                if(child == (child->parent->parent)->left->left)
                 { 	
 					RightRotation(child->parent->parent); 
 					
@@ -101,7 +137,7 @@ void RedBlackTree::Insert(int x)
                 {
 					RightRotation(child->parent); 
 					LeftRotation(child->parent); 
-				}
+				}*/
 
 			}
 
@@ -121,11 +157,13 @@ void RedBlackTree::Insert(int x)
 			 // 3: If the parent of newNode is black then exit from the operation
 			if (child == root) 
 			{
+				//root->color = black; 
 				break;
 			}
 		}
 		
-        root->color = black;  
+		// 3: If the parent of newNode is black then exit from the operation
+        //root->color = black;  
     }
 }
 
