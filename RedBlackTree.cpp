@@ -73,6 +73,7 @@ void RedBlackTree::Insert(int x)
             parent->right = child;
         }
         this->numItems++; 
+        
         if (child->parent->color == black)
         {
 		}
@@ -130,16 +131,8 @@ void RedBlackTree::Insert(int x)
 				}
 			}
 			
-			 // 3: If the parent of newNode is black then exit from the operation
-			//if (child == root) 
-			//{
-				//root->color = black; 
-				//break;
-			//}
 		}
 		
-		// 3: If the parent of newNode is black then exit from the operation
-        //root->color = black;  
     }
 }
 
