@@ -103,20 +103,12 @@ void RedBlackTree::Insert(int x)
                 // if the grandfather's left left = child, then ll
 
                 if( (child-> parent->parent)  ->left->left == child){ // we need to do ll on child parent parent (granps)
-                    cout << "Executing LL Rotate! " << endl;        
-                    this->llRotate(child->parent->parent);//granps
                 }
                 else if( (child-> parent->parent)  ->left->right == child){ // we need to do lr on child parent parent (granps)
-                    cout << "Executing LR Rotate! " << endl; 
-                    this->lrRotate(child->parent->parent);//granps
                 }
                 else if( (child-> parent->parent)  ->right->right == child){ // we need to do rr on child parent parent (granps)
-                    cout << "Executing RR Rotate! " << endl; 
-                    this->rrRotate(child->parent->parent);//granps
                 }                
                 else if(child->parent->parent->right->left == child){ // we need to do ll on child parent parent (granps)
-                    cout << "Executing RL Rotate! " << endl; 
-                    this->rlRotate(child->parent->parent);//granps
                 }
 
 			}
@@ -128,19 +120,13 @@ void RedBlackTree::Insert(int x)
 				{
                     if( (child-> parent->parent)  ->left->left == child){ // we need to do ll on child parent parent (granps)
                         cout << "Executing LL Rotate! " << endl;        
-                        this->llRotate(child->parent->parent);//granps
                     }
                     else if( (child-> parent->parent)  ->left->right == child){ // we need to do lr on child parent parent (granps)
-                        cout << "Executing LR Rotate! " << endl; 
-                        this->lrRotate(child->parent->parent);//granps
+                        // do left and then right rotate
                     }
                     else if( (child-> parent->parent)  ->right->right == child){ // we need to do rr on child parent parent (granps)
-                        cout << "Executing RR Rotate! " << endl; 
-                        this->rrRotate(child->parent->parent);//granps
                     }                
                     else if(child->parent->parent->right->left == child){ // we need to do ll on child parent parent (granps)
-                        cout << "Executing RL Rotate! " << endl; 
-                        this->rlRotate(child->parent->parent);//granps
                     }
 
                     // this->FlipColor(this->GetUncle(child));
@@ -216,7 +202,6 @@ int RedBlackTree::Size()
 	return numItems; 
 }
 
-
 string RedBlackTree::InfixString(RBTNode* currNode)
 {
     // take a node
@@ -248,7 +233,6 @@ string RedBlackTree::InfixString(RBTNode* currNode)
     
 	return infixStr; 
 }
-
 
 string RedBlackTree::PrefixString(RBTNode* currNode)
 {
@@ -370,163 +354,63 @@ RBTNode* RedBlackTree::GetNode(int x)
 	
 }
 
-/*
-void RedBlackTree::LeftRotation(RBTNode* currNode){ 
-    //the curr node's parent is going to change their son to the currNode's left child
-    RBTNode* father = currNode->parent;
-    RBTNode* rightChild = currNode->right;
-    RBTNode* adoptedChild = rightChild->left;
-
-    //handle the father interaction
-    if(father->right == currNode){
-        father->right = rightChild;
-    }
-    else{
-        father->left = rightChild;
-    }
-    rightChild->parent = father;
-
-    // have the right child become the currNode's father
-    rightChild->left = currNode;
-    currNode->parent = rightChild;
-
-    // have the adopted child become the CurrNode's son
-    adoptedChild->parent = currNode;
-    currNode->right = adoptedChild;
-}*/
-
-// Working
-void RedBlackTree::rrRotate(RBTNode* currNode)
-{  
-
-    RBTNode* son = currNode->right;
-    RBTNode* grandson = son->right;
-
-    // if the current node is the root
-    if(currNode == root){
-        currNode->right = grandson;
-        root = son;
-        son->parent = nullptr;
-        son->left = currNode;
-        currNode->parent = root;
-        this->ColorSwap(son,currNode);
-    }
-
-    else{
-        currNode->right = grandson;
-        son->parent = currNode->parent;
-        son->left = currNode;
-        currNode->parent = son;
-        ColorSwap(son,currNode);
-    }
-}
-
-void RedBlackTree::rlRotate(RBTNode* currNode)
+void RedBlackTree::RightRotation(RBTNode* currNode)
 {
-    RBTNode* son = currNode->right;
-    RBTNode* grandson = son->left;
-
-    currNode-> right = grandson;
-    grandson->parent = currNode;
-
-    grandson->right = son;
-    son->parent = grandson;
-
-    this->llRotate(currNode);
-}
-
-void RedBlackTree::llRotate(RBTNode* currNode)
-{
-    RBTNode* son = currNode->left;
-    RBTNode* grandson = son->right;
-    // if the current node is the root
-
-    
-    if(currNode == root){
-        currNode->left = grandson;
-        root = son;
-        son->parent = nullptr;
-        son->right = currNode;
-        currNode->parent = root;
-        this->ColorSwap(son,currNode);
-    }
-    else{
-        currNode->left = grandson;
-        son->parent = currNode->parent;
-        son->right = currNode;
-        currNode->parent = son;
-        this->ColorSwap(son,currNode);
-    }
-} 
-
-void RedBlackTree::lrRotate(RBTNode* currNode)
-{
-    cout << this->ToPrefixString() << endl;
-    RBTNode* son = currNode->left;
-    RBTNode* grandson = son->right;
-
-    currNode-> left = grandson;
-    grandson->parent = currNode;
-
-    grandson->left = son;
-    son->parent = grandson;
-    this->llRotate(currNode);
-    
-}
-
-/*
-void RedBlackTree::RightRrightotation(RBTNode* currNode){ 
-
-
-	// if the current node IS the root 
-	if (currNode == root)
-	{	
-		root = currNode->left;  
-		currNode->left = root->right; 
-		root->right = currNode; 
+	RBTNode* temp = currNode->right;
+	
+	currNode->right = temp->left;
+	if (temp->left != nullptr)
+	{
+		temp->left->parent = currNode;
 	}
-		
-		//currNode becomes the right child of the root 
-		root->right = currNode; 
-		// right child of the root is now 30 
-		
-		root->parent = nullptr; 
-		
-		root->right->parent = root; 
-		
 	
-		currNode->parent->parent = currNode;
-
-		// adopted child becomes 30 
-		currNode->right = currNode->parent;
-		//currNode->parent = nullptr; 
-		
-	// after the rotation the parent of the child becomes the root 
+	temp->parent = currNode->parent;
 	
-    //the curr node's parent is going to change their son to the currNode's left child
-    
-    RBTNode* father = currNode->parent;
-    RBTNode* leftChild = currNode->left;
-    RBTNode* adoptedChild = leftChild->right;
-
-    //handle the father interaction
-    if(father->left == currNode){
-        father->left = leftChild;
-    }
-    else{
-        father->right = leftChild;
-    }
-    leftChild->parent = father;
-
-    // have the left child become the currNode's father
-    leftChild->right = currNode;
-    currNode->parent =leftChild;
-
-    // have the adopted child become the CurrNode's son
-    adoptedChild->parent = currNode;
-    currNode->left = adoptedChild;
+	if (currNode->parent == nullptr)
+	{
+		this->root = temp;
+	}
+	else if (currNode == currNode->parent->left)
+	{
+		currNode->parent->left = temp;
+	}
+	else
+	{
+		currNode->parent->right = temp;
+	}
+	
+	temp->left = currNode;
+	currNode->parent = temp;
 }
-*/
+
+void RedBlackTree::LeftRotation(RBTNode* currNode)
+{
+	RBTNode* temp = currNode->left;
+	
+	currNode->left = temp->right;
+	
+	if (temp->right != nullptr)
+	{
+		temp->right->parent = currNode;
+	}
+	
+	temp->parent = currNode->parent;
+	if (currNode->parent == nullptr)
+	{
+		this->root = temp;
+	}
+	else if (currNode == currNode->parent->right)
+	{
+		currNode->parent->right = temp;
+	}
+	else
+	{
+		currNode->parent->left = temp;
+	}
+	
+	temp->right = currNode;
+	currNode->parent = temp;
+}
 
 void RedBlackTree::FlipColor(RBTNode* rbn){ //requires testing
     if(rbn->color == 0){
@@ -542,7 +426,6 @@ void RedBlackTree::ColorSwap(RBTNode* rbn1, RBTNode* rbn2){
     rbn1->color = rbn2->color;
     rbn2->color = tmpColor;
 }
-
 
 bool hasFather(RBTNode* currNode){
     if(currNode->parent == nullptr){
