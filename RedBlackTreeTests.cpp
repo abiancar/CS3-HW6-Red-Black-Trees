@@ -116,7 +116,7 @@ void TestInsertThirdNode(){
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(10); // Left Left
-	cout << "rbt 1: "  << rbt->ToPrefixString() << endl;
+	// cout << "rbt 1: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B15  R10  R30 ");
 	delete rbt;
 	
@@ -124,7 +124,7 @@ void TestInsertThirdNode(){
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(25); // Right Left
-	cout << rbt->ToPrefixString() << endl;
+	// cout << rbt->ToPrefixString() << endl;
 	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B25  R15  R30 ");
 	delete rbt;
@@ -133,14 +133,13 @@ void TestInsertThirdNode(){
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(45); // Easy case
-	cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	// cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B30  R15  R45 ");
 	delete rbt;
 	
 	// more tests go here
 	// consider some symmetry!*/
 	
-	cout << "TESTS MISSING" << endl << endl;
 	cout << "PASSED!" << endl << endl;
 }
 
@@ -148,23 +147,55 @@ void TestInsertFourthNode(){
 	
 	cout << "Testing Insert Fourth Node..." << endl;
 
-	cout << "TESTS MISSING" << endl << endl;
+
+	// inserting a left to a balanced tree
+	RedBlackTree *rbt = new RedBlackTree();
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(10); 
+	rbt->Insert(5);
+	// cout << "rbt 1: "  << rbt->ToPrefixString() << endl;
+	assert(rbt->ToPrefixString() == " B15  B10  R5  B30 ");
+	delete rbt;
 	
+	rbt = new RedBlackTree(); 
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(25); // Right Left
+	rbt->Insert(35);
+	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	assert(rbt->ToPrefixString() == " B25  B15  B30  R35 ");
+	delete rbt;
+	
+	rbt = new RedBlackTree();
+	rbt->Insert(35);
+	rbt->Insert(15);
+	rbt->Insert(45); // Left right
+	rbt->Insert(20);
+	// cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	assert(rbt->ToPrefixString() == " B35  B15  R20  B45 ");
+	delete rbt;
+	
+	// more tests go here
+	// consider some symmetry!*/	
 	cout << "PASSED!" << endl << endl;
 }
 
 void TestInsertFifthNode(){
-	/*
+	
 	cout << "Testing Insert Fifth Node..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
 	rbt->Insert(30);
-	rbt->Insert(15);
 	rbt->Insert(45);
-	rbt->Insert(10);
-	rbt->Insert(25);
-	//cout << "result: "  << rbt->ToPrefixString() << endl;
-	assert(rbt->ToPrefixString() == " B30  B15  R10  R25  B45 ");
-	delete rbt;*/
+	cout << "result: "  << rbt->ToPrefixString() << endl;
+	rbt->Insert(35);
+	cout << "result: "  << rbt->ToPrefixString() << endl;
+	rbt->Insert(20);
+	cout << "result: "  << rbt->ToPrefixString() << endl;
+	rbt->Insert(21);
+	cout << "result: "  << rbt->ToPrefixString() << endl;
+	assert(rbt->ToPrefixString() == " B35  B21  R20  R30  B45 ");
+	delete rbt;
 	
 	cout << "TESTS MISSING" << endl << endl;
 	
@@ -282,9 +313,6 @@ void TestContains(){
 	cout << "PASSED!" << endl << endl;
 }
 
-
-
-
 void TestGetMinimumMaximum(){
 	cout << "Testing Get Minimum and Get Maximum..." << endl;
 
@@ -292,7 +320,6 @@ void TestGetMinimumMaximum(){
 
 	cout << "PASSED!" << endl << endl;
 }
-
 
 void TestGetUncle(){
 	cout << "Testing GetUncle()" << endl;
@@ -347,72 +374,6 @@ int main(){
 	
 	// TestRotate();
 
-	/*
-	RedBlackTree rbt = RedBlackTree();
-	
-	rbt.Insert(30);
-	rbt.Insert(15); 
-	rbt.Insert(10); 
-	
-	cout << "Pre-rotation: " << rbt.ToPrefixString() << endl; 
-	
-	//rbt.llrotation(rbt.GetNode(30)); 
-	
-	//cout << "Post-rotation: " << rbt.ToPrefixString() << endl; 
-	
-	RedBlackTree rbt2 = RedBlackTree();
-
-	rbt2.Insert(5);
-	rbt2.Insert(3);
-	rbt2.Insert(1);
-	rbt2.Insert(4);
-	rbt2.Insert(8);
-	rbt2.Insert(7);
-	rbt2.Insert(9);
-	
-	cout << "INFIX: " << rbt2.ToInfixString() << endl;
-	cout << "PREFIX: " << rbt2.ToPrefixString() << endl;
-	cout << "POSTFIX: " << rbt2.ToPostfixString() << endl;
-	
-	cout << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(1))) << endl;
-	//cout << "shouldn't have an uncle: " << rbt2.InfixString(rbt2.GetUncle(rbt2.GetNode(3))) << endl;
-	cout << rbt2.InfixString(rbt2.GetNode(3)) << endl; 
-	
-	RedBlackTree* rbt3 = new RedBlackTree(); 
-	
-	rbt3->Insert(40);
-	rbt3->Insert(22);
-	rbt3->Insert(15);
-	rbt3->Insert(12);
-	rbt3->Insert(17);
-	rbt3->Insert(31);
-	
-	rbt3->Insert(29);
-	rbt3->Insert(28);
-	rbt3->Insert(34);
-	rbt3->Insert(55);
-	rbt3->Insert(50);
-	rbt3->Insert(49);
-	rbt3->Insert(59);*/
-	
-
-	/*
-	rbt3->Insert(10);
-	rbt3->Insert(7);
-	rbt3->Insert(5);
-	rbt3->Insert(2);
-	rbt3->Insert(6);
-	rbt3->Insert(8);
-	rbt3->Insert(15);*/
-	
-	/*
-	cout << "Pre-rotation tree: " << rbt3->ToPrefixString() << endl; 
-	
-	rbt3->LeftRotation(rbt3->GetNode(22)); 
-	
-	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; */
-	
-	
 	TestSimpleConstructor();
 	TestGetUncle();
 	TestContains();
@@ -420,12 +381,14 @@ int main(){
 	TestInsertFirstNode();
 	TestInsertSecondNode();
 	TestInsertThirdNode();
+	TestInsertFourthNode();
+	TestInsertFifthNode();
+
 
 
 	/*
 	
-	TestInsertFourthNode();
-	TestInsertFifthNode();
+
 	TestToStrings();
 	TestInsertRandomTests();
 	TestCopyConstructor();
