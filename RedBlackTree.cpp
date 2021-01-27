@@ -16,15 +16,6 @@ RedBlackTree::~RedBlackTree()
 	// delete the tree
 }
 
-/*
-
-2) If tree is not empty, insert the newNode as leaf node with color red
-3) If the parent of newNode is black then exit from the operation
-4) If the parent of newNode is Red then check the color of parent's sibling
-	5) If uncle is colored black or null then make suitable rotation and recolor it
-	6) If uncle is colorded red then perform recolor. Repeat the same until tree becomes proper red black tree 
-*/
-
 void RedBlackTree::Insert(int x)
 {    
     int red = 1;
@@ -81,93 +72,60 @@ void RedBlackTree::Insert(int x)
         }else{
             parent->right = child;
         }
-        this->numItems++;
+        this->numItems++; 
         
-        // We have just inserted a new RED leaf, finished with Step# 2
-
-
-        // 3: If the parent of newNode is black then exit from the operation
-        if(child->parent->color == black){
-
-        }
-
         // 4 :If the parent of newNode is Red then check the color of uncle
-        else if(child->parent->color == red){  
+		while(child->parent->color != black)
+        {  
             
-            // 5-1: if the uncle is null, make suitable rotation 
-            if (this->GetUncle(child) ==  nullptr)
+            // 5: if the uncle is null or the uncle is black, make suitable rotation and recolor 
+			// NO UNCLE 
+            if (this->GetUncle(child) ==  nullptr || this->GetUncle(child)->color == black)
             {
-                
-                // child  is our currNode
-                // how do we know if it is ll?
-                // if the grandfather's left left = child, then ll
-
-                if( (child-> parent->parent)  ->left->left == child)
-                { 	// we need to do ll on child parent parent (granps)
+                if(child == (child-> parent->parent)->left->left)
+                { 	
 					RightRotation(child->parent->parent); 
 					
-					
                 }
-                else if( (child-> parent->parent)  ->left->right == child)
-                { // we need to do lr on child parent parent (granps)
-
+                else if(child == (child-> parent->parent)->left->right)
+                { 
 					LeftRotation(child->parent); 
 					RightRotation(child->parent); 		
                 }
-                else if( (child-> parent->parent)  ->right->right == child)
-                { // we need to do rr on child parent parent (granps)
+                else if(child == (child-> parent->parent)->right->right)
+                { 
 					LeftRotation(child->parent->parent); 
 					
                 }                
-                else if(child->parent->parent->right->left == child)
-                { // we need to do rl on child parent parent (granps)
-
+                else if(child == child->parent->parent->right->left)
+                {
 					RightRotation(child->parent); 
 					LeftRotation(child->parent); 
 				}
 
 			}
-			
-            else 
-            {
-				// 5-2: if uncle is black, make suitable rotation and recolor the uncle
-				if (this->GetUncle(child)->color == black)
+
+			// 6: if uncle is red, make uncle black
+			// YES UNCLE 
+			else if(this->GetUncle(child)->color == red)
+			{
+				this->FlipColor(this->GetUncle(child)); //flip the uncle's color
+				this->FlipColor(child->parent);
+
+				if(child->parent->parent != root)
 				{
-                    if( (child-> parent->parent)  ->left->left == child)
-                    { // we need to do ll on child parent parent (granps)
-                        cout << "Executing LL Rotate! " << endl;        
-                    }
-                    else if( (child-> parent->parent)  ->left->right == child)
-                    { // we need to do lr on child parent parent (granps)
-                        // do left and then right rotate
-                    }
-                    else if( (child-> parent->parent)  ->right->right == child)
-                    { // we need to do rr on child parent parent (granps)
-                    }                
-                    else if(child->parent->parent->right->left == child){ // we need to do ll on child parent parent (granps)
-                    }
-
-                    // this->FlipColor(this->GetUncle(child));
-				}
-
-            // 6: if uncle is red, make uncle black
-				if(this->GetUncle(child)->color == red)
-				{
-					this->FlipColor(this->GetUncle(child)); //flip the uncle's color
-                    this->FlipColor(child->parent);
-
-                    if(child->parent->parent != root){
-                        this->FlipColor(child->parent->parent);
-                    }
-
-                //do otha stuff
+					this->FlipColor(child->parent->parent);
 				}
 			}
-
-            // 7? : Repeat till we get the correct tree
-        }
-
-        
+			
+			 // 3: If the parent of newNode is black then exit from the operation
+			if (child == root) 
+			{
+				break;
+			}
+		}
+		
+        root->color = black;  
     }
 }
 
