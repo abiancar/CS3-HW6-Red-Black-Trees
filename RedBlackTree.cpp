@@ -69,8 +69,7 @@ void RedBlackTree::Insert(int x)
                     child = parent->right;
 
                 }
-                // child->parent = parent;
-                // parent = child->parent;
+
             }
         }
 
@@ -97,7 +96,25 @@ void RedBlackTree::Insert(int x)
             // 5-1: if the uncle is null, make suitable rotation 
             if (this->GetUncle(child) ==  nullptr)
             {
-				
+                
+                // child  is our currNode
+                // how do we know if it is ll?
+                // if the grandfather's left left = child, then ll
+
+                if( (child-> parent->parent)  ->left->left == child){ // we need to do ll on child parent parent (granps)
+                    cout << "Executing LL Rotate! " << endl;        
+                    this->llRotate(child->parent->parent);//granps
+                }
+                else if( (child-> parent->parent)  ->left->right == child){ // we need to do lr on child parent parent (granps)
+                    this->lrRotate(child->parent->parent);//granps
+                }
+                else if( (child-> parent->parent)  ->right->right == child){ // we need to do rr on child parent parent (granps)
+                    this->rrRotate(child->parent->parent);//granps
+                }                
+                else if(child->parent->parent->right->left == child){ // we need to do ll on child parent parent (granps)
+                    this->rlRotate(child->parent->parent);//granps
+                }
+
 			}
 			
             else 
@@ -105,7 +122,21 @@ void RedBlackTree::Insert(int x)
 				// 5-2: if uncle is black, make suitable rotation and recolor the uncle
 				if (this->GetUncle(child)->color == black)
 				{
-					cout << "yup" << endl; 
+                    if( (child-> parent->parent)  ->left->left == child){ // we need to do ll on child parent parent (granps)
+                        cout << "Executing LL Rotate! " << endl;        
+                        this->llRotate(child->parent->parent);//granps
+                    }
+                    else if( (child-> parent->parent)  ->left->right == child){ // we need to do lr on child parent parent (granps)
+                        this->lrRotate(child->parent->parent);//granps
+                    }
+                    else if( (child-> parent->parent)  ->right->right == child){ // we need to do rr on child parent parent (granps)
+                        this->rrRotate(child->parent->parent);//granps
+                    }                
+                    else if(child->parent->parent->right->left == child){ // we need to do ll on child parent parent (granps)
+                        this->rlRotate(child->parent->parent);//granps
+                    }
+
+                    this->FlipColor(this->GetUncle(child));
 				}
 
             // 6: if uncle is red, make uncle black
@@ -351,7 +382,7 @@ void RedBlackTree::LeftRotation(RBTNode* currNode){
 // Working
 RBTNode* RedBlackTree::rrRotate(RBTNode* currNode)
 { 
-	//RBTNode* temp; 
+    //RBTNode* temp; 
 	root = currNode->right; 
 	currNode->right = root->left; 
 	root->left = currNode; 
@@ -362,7 +393,7 @@ RBTNode* RedBlackTree::rrRotate(RBTNode* currNode)
 RBTNode* RedBlackTree::rlRotate(RBTNode* currNode)
 {
 	
-	RBTNode* temp; 
+	RBTNode* temp = nullptr; 
 	temp = currNode->right; 
 	currNode->right = llRotate(temp); 
 	
@@ -383,7 +414,7 @@ RBTNode* RedBlackTree::llRotate(RBTNode* currNode)
 RBTNode* RedBlackTree::lrRotate(RBTNode* currNode)
 {
 	
-	RBTNode* temp; 
+	RBTNode* temp = nullptr;
 	temp = currNode->left; 
 	currNode->left = rrRotate(temp); 
 	
@@ -451,5 +482,11 @@ void RedBlackTree::FlipColor(RBTNode* rbn){ //requires testing
     }else{
         rbn->color =0;
     }
+}
 
+void ColorSwap(RBTNode* rbn1, RBTNode* rbn2){
+    int tmpColor;
+    tmpColor = rbn1->color;
+    rbn1->color = rbn2->color;
+    rbn2->color = tmpColor;
 }
