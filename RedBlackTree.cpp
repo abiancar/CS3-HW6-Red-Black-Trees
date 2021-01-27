@@ -95,9 +95,13 @@ void RedBlackTree::Insert(int x)
 						// right left case 
 						child = child->parent;
 						RightRotation(child); 
+
 					}
 					
 					LeftRotation(child->parent->parent); 
+					child->parent->color = black; 
+					child->parent->right->color = red; 
+					child->parent->left->color = red; 
 				}
 				
 				// left left case
@@ -111,8 +115,12 @@ void RedBlackTree::Insert(int x)
 						child = child->parent;
 						LeftRotation(child);
 					}
-
+					
 					RightRotation(child->parent->parent);
+					child->parent->color = black; 
+					child->parent->right->color = red; 
+					child->parent->left->color = red; 
+
 				}
              
 
@@ -297,7 +305,6 @@ RBTNode* RedBlackTree::GetUncle(RBTNode* rbn){
     // there is no uncle 
     if (rbn->parent->parent == nullptr)
     {
-				cout << rbn->data << endl;
 
         throw invalid_argument("This node has no grandfather, no uncle possible"); 
     } 
