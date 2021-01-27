@@ -116,18 +116,25 @@ void TestInsertThirdNode(){
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(10); // Left Left
-	cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	// rbt->llRotate(rbt->GetNode(30)); 
-	// cout << "rbt after: "  << rbt->ToPrefixString() << endl;
-	// assert(rbt->ToPrefixString() == " B15  R10  R30 ");
+	cout << "rbt after: "  << rbt->ToPrefixString() << endl;
+	assert(rbt->ToPrefixString() == " B15  R10  R30 ");
 	delete rbt;
 	
 	rbt = new RedBlackTree(); 
 	rbt->Insert(30);
 	rbt->Insert(15);
+	cout << "YOOOOOOO" << endl;
 	rbt->Insert(25); // Right Left
+	cout << "YOOOOOOO" << endl;
+	cout <<"A" << endl;
+	// cout << rbt->ToPrefixString();
+	cout <<"B" << endl;
+
+	cout << "ROOOT: " << rbt->root->data; 
+	cout << "Root left: " << rbt->root->left->data;
+	cout << "Root grandson: " << rbt->root->right->data; 
 	cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	// assert(rbt->ToPrefixString() == " B25  R15  R30 ");
+	assert(rbt->ToPrefixString() == " B25  R15  R30 ");
 	delete rbt;
 	
 	rbt = new RedBlackTree();
@@ -303,10 +310,22 @@ void TestGetUncle(){
 	rbt2.Insert(5);
 	rbt2.Insert(3);
 	rbt2.Insert(1);
+	rbt2.Insert(0);
+	rbt2.Insert(2);
+	cout << "A" << endl;
+	cout << rbt2.ToPrefixString() << endl;
+
 	rbt2.Insert(4);
+	cout << "B" << endl;
+	cout << rbt2.ToPrefixString() << endl;
+
 	rbt2.Insert(8);
+	cout << rbt2.ToPrefixString() << endl;
 	rbt2.Insert(7);
 	rbt2.Insert(9);
+	cout << "GOOOD MORNING" << endl;
+	cout << rbt2.ToPrefixString() << endl;
+
 
 	try{
 		rbt2.GetUncle(rbt2.GetNode(5));
@@ -315,7 +334,6 @@ void TestGetUncle(){
 	catch(invalid_argument& e){
 	}
 
-
 	try{
 		rbt2.GetUncle(rbt2.GetNode(3));
 		assert(false);
@@ -323,9 +341,10 @@ void TestGetUncle(){
 	catch(invalid_argument& e){
 	}
 
+
 	// two ndoes share that share the same uncle should return the same uncle
-	assert(rbt2.GetUncle(rbt2.GetNode(1))->data == 8);
-	assert(rbt2.GetUncle(rbt2.GetNode(4))->data == 8);
+	assert(rbt2.GetUncle(rbt2.GetNode(7))->data == 4);
+	assert(rbt2.GetUncle(rbt2.GetNode(9))->data == 4);
 
 
 	cout << "Passed" << endl;
@@ -402,23 +421,23 @@ int main(){
 	cout << "Post-rotation tree: " << rbt3->ToPrefixString() << endl; */
 	
 	
-	// TestSimpleConstructor();
-	// TestGetUncle();
-	// TestInsertFirstNode();
-	// TestInsertSecondNode();
+	TestSimpleConstructor();
+	TestGetUncle();
+	TestContains();
+	TestGetMinimumMaximum();
+	TestInsertFirstNode();
+	TestInsertSecondNode();
 	TestInsertThirdNode();
+
+
 	/*
 	
 	TestInsertFourthNode();
 	TestInsertFifthNode();
-
 	TestToStrings();
 	TestInsertRandomTests();
-
 	TestCopyConstructor();
-
-	TestContains();
-	TestGetMinimumMaximum();
+	
 	*/
 	
 	cout << "ALL TESTS PASSED!!" << endl;
