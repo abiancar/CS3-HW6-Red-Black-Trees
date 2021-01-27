@@ -6,20 +6,67 @@
 
 using namespace std;
 
+void TestGetUncle(){
+	cout << "Testing Get Uncle..." << endl;
+	
+	RedBlackTree rbt2 = RedBlackTree();
+
+	rbt2.Insert(5);
+	rbt2.Insert(3);
+	rbt2.Insert(1);
+	rbt2.Insert(0);
+	rbt2.Insert(2);
+	//cout << "A" << endl;
+	//cout << rbt2.ToPrefixString() << endl;
+
+	rbt2.Insert(4);
+	//cout << "B" << endl;
+	//cout << rbt2.ToPrefixString() << endl;
+
+	rbt2.Insert(8);
+	//cout << rbt2.ToPrefixString() << endl;
+	rbt2.Insert(7);
+	rbt2.Insert(9);
+	//cout << "GOOOD MORNING" << endl;
+	//cout << rbt2.ToPrefixString() << endl;
 
 
-void TestSimpleConstructor(){
+	try{
+		rbt2.GetUncle(rbt2.GetNode(5));
+		assert(false);
+	}
+	catch(invalid_argument& e){
+	}
+
+	try{
+		rbt2.GetUncle(rbt2.GetNode(3));
+		assert(false);
+	}
+	catch(invalid_argument& e){
+	}
+
+
+	// two ndoes share that share the same uncle should return the same uncle
+	assert(rbt2.GetUncle(rbt2.GetNode(7))->data == 4);
+	assert(rbt2.GetUncle(rbt2.GetNode(9))->data == 4);
+
+
+	cout << "PASSED!" << endl << endl;
+}
+
+void TestSimpleConstructor()
+{
 	
 	cout << "Testing Simple Constructor... " << endl;
 	RedBlackTree rbt = RedBlackTree();
-	cout << "empty r-b-tree: " << rbt.ToInfixString() << endl;
+	//cout << "empty r-b-tree: " << rbt.ToInfixString() << endl;
 	assert(rbt.ToInfixString() == "");
 	
 	cout << "PASSED!"<< endl << endl;
 }
 
-
-void TestInsertFirstNode(){
+void TestInsertFirstNode()
+{
 
 	cout << "Testing Insert One Node..." << endl;
 	RedBlackTree rbt = RedBlackTree();
@@ -30,8 +77,8 @@ void TestInsertFirstNode(){
 	cout << "PASSED!" << endl << endl;
 }
 
-
-void TestInsertSecondNode(){
+void TestInsertSecondNode()
+{
 
 	cout << "Testing Insert Second Node..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
@@ -49,67 +96,8 @@ void TestInsertSecondNode(){
 	cout << "PASSED!" << endl << endl;
 }
 
-/*
-void TestRotate()
+void TestInsertThirdNode()
 {
-	cout << "Testing Rotate..." << endl;
-	RedBlackTree *rbt = new RedBlackTree();
-	
-	// LEFT LEFT CASE 
-	rbt->Insert(30);
-	rbt->Insert(15);
-	rbt->Insert(10); 
-	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	rbt->llRotate(rbt->GetNode(30)); 
-	cout << "Left left case handled" << endl;
-	cout << "rbt after 15 10 30: "  << rbt->ToPrefixString() << endl;
-	
-	delete rbt;
-	
-	// RIGHT RIGHT CASE 
-	rbt = new RedBlackTree(); 
-	rbt->Insert(30);
-	rbt->Insert(45);
-	rbt->Insert(50);
-	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	rbt->rrRotate(rbt->GetNode(30)); 
-	cout << "Right right case handled" << endl;
-	cout << "rbt after 45 30 50: "  << rbt->ToPrefixString() << endl; 
-
-	delete rbt;
-	
-	// LEFT RIGHT CASE 
-	rbt = new RedBlackTree(); 
-	rbt->Insert(30);
-	rbt->Insert(15);
-	rbt->Insert(20); 
-	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	rbt->lrRotate(rbt->GetNode(30)); 
-	cout << "Left right case handled" << endl;
-	cout << "rbt after 20 15 30: "  << rbt->ToPrefixString() << endl; 
-
-	delete rbt;
-	
-	
-	// RIGHT LEFT CASE 
-	rbt = new RedBlackTree(); 
-	rbt->Insert(30);
-	rbt->Insert(45);
-	rbt->Insert(40); 
-	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
-	rbt->rlRotate(rbt->GetNode(30)); 
-	
-	cout << "Right left case handled" << endl;
-	cout << "rbt after 40 30 45: "  << rbt->ToPrefixString() << endl; 
-
-	delete rbt;
-	
-	cout << "PASSED! " << endl;
-}
-	
-*/
-void TestInsertThirdNode(){
-	
 	
 	cout << "Testing Insert Third Node..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
@@ -143,7 +131,8 @@ void TestInsertThirdNode(){
 	cout << "PASSED!" << endl << endl;
 }
 
-void TestInsertFourthNode(){
+void TestInsertFourthNode()
+{
 	
 	cout << "Testing Insert Fourth Node..." << endl;
 
@@ -154,7 +143,7 @@ void TestInsertFourthNode(){
 	rbt->Insert(15);
 	rbt->Insert(10); 
 	rbt->Insert(5);
-	// cout << "rbt 1: "  << rbt->ToPrefixString() << endl;
+	//cout << "rbt 1: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B15  B10  R5  B30 ");
 	delete rbt;
 	
@@ -181,29 +170,36 @@ void TestInsertFourthNode(){
 	cout << "PASSED!" << endl << endl;
 }
 
-void TestInsertFifthNode(){
+void TestInsertFifthNode()
+{
 	
 	cout << "Testing Insert Fifth Node..." << endl;
+
 	RedBlackTree *rbt = new RedBlackTree();
 	rbt->Insert(30);
 	rbt->Insert(45);
-	cout << "result: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(35);
-	cout << "result: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(20);
-	cout << "result: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(21);
-	cout << "result: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B35  B21  R20  R30  B45 ");
 	delete rbt;
 	
-	cout << "TESTS MISSING" << endl << endl;
+	
+	rbt = new RedBlackTree();
+	rbt->Insert(50);
+	rbt->Insert(30);
+	rbt->Insert(60);
+	rbt->Insert(55);
+	rbt->Insert(56);
+	assert(rbt->ToPrefixString() == " B50  B30  B56  R55  R60 ");
+	delete rbt;
 	
 	cout << "PASSED!" << endl << endl;
 }
 
 
-void TestToStrings(){
+void TestToStrings()
+{
 
 	cout << "Testing ToString Methods..." << endl;
 
@@ -223,7 +219,7 @@ void TestToStrings(){
 }
 
 void TestInsertRandomTests(){
-	/*
+	
 	cout << "Testing Random Insert Stuff..." << endl;
 	cout << "\t This test passes if it doesn't crash and valgrind reports no issues" << endl;
 	RedBlackTree *rbt = new RedBlackTree();
@@ -232,11 +228,11 @@ void TestInsertRandomTests(){
 	rbt->Insert(20);
 	rbt->Insert(12);
 	cout << endl;
-	//cout << "tree: " << rbt->ToInfixString() << endl;
+
+	assert(rbt->ToPrefixString() == " B15  B13  R12  B20 ");
+
 	delete rbt;
 	
-	
-	// probably should have a delete or something here
 	rbt = new RedBlackTree();
 	//cout << endl << "NEW TREE" << endl;
 	rbt->Insert(12);
@@ -251,24 +247,41 @@ void TestInsertRandomTests(){
 	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(7);
 	//cout << "tree: "  << rbt->ToInfixString() << endl;
+
+	cout << rbt->ToPrefixString() << endl; 
+	assert(rbt->ToPrefixString() == " B12  B7  R5  R11  B15  R13 ");
+
 	delete rbt;
 	
 	
 	rbt = new RedBlackTree();
-	//cout << endl << "NEW TREE" << endl;
+	
 	rbt->Insert(12);
-	//cout << "tree: "  << rbt->ToPrefixString() << endl;
+	rbt->Insert(11);
+	rbt->Insert(15);
+	rbt->Insert(5);
+	rbt->Insert(13);
+	//cout << "tree: "  << rbt->ToInfixString() << endl;
+	rbt->Insert(7);
+	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(10);
 	//cout << "tree: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(8);
 	//cout << "tree: "  << rbt->ToPrefixString() << endl;
-	delete rbt;*/
+	rbt->Insert(40);
+	rbt->Insert(9);
+	
+	cout << rbt->ToPrefixString() << endl; 
+	assert(rbt->ToPrefixString() == " B10  R7  B5  B8  R9  R12  B11  B15  R13  R40 ");
+	
+	delete rbt;
 	
 	cout << "PASSED!" << endl << endl;
 }
 
-void TestCopyConstructor(){
-	/*
+void TestCopyConstructor()
+{
+	
 	cout << "Testing Copy Constructor..." << endl;
 
 	RedBlackTree rbt1 = RedBlackTree();
@@ -286,13 +299,14 @@ void TestCopyConstructor(){
 	assert(rbt2.ToPrefixString() == rbt1.ToPrefixString());
 
 	rbt1.Insert(200);
-	assert(rbt2.ToPrefixString() != rbt1.ToPrefixString());*/
+	assert(rbt2.ToPrefixString() != rbt1.ToPrefixString());
 
 	cout << "PASSED!" << endl << endl;
 }
 
-void TestContains(){
-	/*
+void TestContains()
+{
+	
 	cout << "Testing Contains..." << endl;
 	RedBlackTree *rbt = new RedBlackTree();
 	rbt->Insert(40);
@@ -306,14 +320,15 @@ void TestContains(){
 	rbt->Insert(34);
 	
 	assert(rbt->Contains(34));
-	delete rbt;*/
+	delete rbt;
 
 	
-	cout << "TESTS MISSING" << endl << endl;
+	cout << "TESTS MISSING" << endl;
 	cout << "PASSED!" << endl << endl;
 }
 
-void TestGetMinimumMaximum(){
+void TestGetMinimumMaximum()
+{
 	cout << "Testing Get Minimum and Get Maximum..." << endl;
 
 	cout << "TESTS MISSING" << endl << endl;
@@ -321,78 +336,24 @@ void TestGetMinimumMaximum(){
 	cout << "PASSED!" << endl << endl;
 }
 
-void TestGetUncle(){
-	cout << "Testing GetUncle()" << endl;
-	
-	RedBlackTree rbt2 = RedBlackTree();
-
-	rbt2.Insert(5);
-	rbt2.Insert(3);
-	rbt2.Insert(1);
-	rbt2.Insert(0);
-	rbt2.Insert(2);
-	cout << "A" << endl;
-	cout << rbt2.ToPrefixString() << endl;
-
-	rbt2.Insert(4);
-	cout << "B" << endl;
-	cout << rbt2.ToPrefixString() << endl;
-
-	rbt2.Insert(8);
-	cout << rbt2.ToPrefixString() << endl;
-	rbt2.Insert(7);
-	rbt2.Insert(9);
-	cout << "GOOOD MORNING" << endl;
-	cout << rbt2.ToPrefixString() << endl;
-
-
-	try{
-		rbt2.GetUncle(rbt2.GetNode(5));
-		assert(false);
-	}
-	catch(invalid_argument& e){
-	}
-
-	try{
-		rbt2.GetUncle(rbt2.GetNode(3));
-		assert(false);
-	}
-	catch(invalid_argument& e){
-	}
-
-
-	// two ndoes share that share the same uncle should return the same uncle
-	assert(rbt2.GetUncle(rbt2.GetNode(7))->data == 4);
-	assert(rbt2.GetUncle(rbt2.GetNode(9))->data == 4);
-
-
-	cout << "Passed" << endl;
-}
-
 int main(){
-	
-	
-	// TestRotate();
 
-	TestSimpleConstructor();
+
 	TestGetUncle();
+	
+	TestSimpleConstructor();
 	TestContains();
-	TestGetMinimumMaximum();
+
 	TestInsertFirstNode();
 	TestInsertSecondNode();
 	TestInsertThirdNode();
 	TestInsertFourthNode();
 	TestInsertFifthNode();
 
-
-
-	/*
-	
-
 	TestToStrings();
-	TestInsertRandomTests();
+	TestInsertRandomTests();/*
 	TestCopyConstructor();
-	
+	TestGetMinimumMaximum();
 	*/
 	
 	cout << "ALL TESTS PASSED!!" << endl;
