@@ -10,6 +10,17 @@ RedBlackTree::RedBlackTree()
 {   
 	// no action needed 
 }
+
+// copy constructor 
+RedBlackTree::RedBlackTree(const RedBlackTree& rbt)
+{
+	this->root = rbt.root;
+	this->numItems = rbt.numItems; 
+	this->InfixString(this->root) = rbt.InfixString(rbt.root);
+	this->PrefixString(this->root) = rbt.PrefixString(rbt.root);
+    this->PostfixString(this->root) = rbt.PostfixString(rbt.root); 
+ 
+}
 RedBlackTree::~RedBlackTree()
 {
 	// starting from the maximum
@@ -20,10 +31,13 @@ void RedBlackTree::Insert(int x)
 {    
     int red = 1;
     int black = 0;
-    // 1: If tree is empty, insert the newNode as Root node with color black and exit from operation
-	if (numItems == 0) // create a node, make the node the root node 
+    
+    RBTNode* newNode = new RBTNode(); 
+  
+    // 1: If tree is empty, insert the newNode as Root node with color black and exit from operation	
+	if (this->root == nullptr) // create a node, make the node the root node 
 	{
-		RBTNode* newNode = new RBTNode(); 
+		//RBTNode* newNode = new RBTNode(); 
 		newNode->color = black; // set to black
         newNode->data = x; 
 		this->root = newNode; 
@@ -31,54 +45,58 @@ void RedBlackTree::Insert(int x)
 	}
 	
     // 2 : If tree is not empty, insert the newNode as leaf node with color red
-    else{ // everything inside this else = if tree != empty 
-
-        RBTNode* newNode = new RBTNode();
+    else{ 
+        //RBTNode* newNode = new RBTNode();
         newNode->data = x;
         newNode->color = red; //set color as red
-        
-        //RBTNode* parent =  this->root;
+       
         RBTNode* parent = this->root;
-        RBTNode* child;
+        RBTNode* child = nullptr;
 
-		if(x < parent->data){
+		if(x < parent->data)
+		{
             child = parent->left;
         }
-        else{
+        else
+        {
             child = parent->right;
         }
-        // we know that the child is not in a while loop
+        
+		while(child != nullptr)
+		{
+			if(x < child->data)
+			{
+				parent = child;
+				child = parent->left;                    
+			}
+			else
+			{
+				parent = child;
+				child = parent->right;
 
-        if(child != nullptr){
-            while(child != nullptr){
-                if(x < child->data){
-                    parent = child;
-                    child = parent->left;                    
-                }
-                else{
-                    parent = child;
-                    child = parent->right;
+			}
 
-                }
-
-            }
-        }
+		}
 
         child = newNode;
         child->parent = parent;
 
-        if(child->data < parent-> data){
+        if(child->data < parent-> data)
+        {
             parent->left = child;
-        }else{
+        }
+        else
+        {
             parent->right = child;
         }
+        
         this->numItems++; 
         
-        if (child->parent->color == black)
-        {
-		}
+        //if (child->parent->color == black)
+        //{
+		//}
         // 4 :If the parent of newNode is Red then check the color of uncle
-		else if (child->parent->color == red)
+		while (child->parent->color != black)
         {  
             // 5: if the uncle is null or the uncle is black, make suitable rotation and recolor 
 			// NO UNCLE 
@@ -137,6 +155,11 @@ void RedBlackTree::Insert(int x)
 				{
 					this->FlipColor(child->parent->parent);
 				}
+			}
+			
+			if (child == root)
+			{
+				break; 
 			}
 			
 		}

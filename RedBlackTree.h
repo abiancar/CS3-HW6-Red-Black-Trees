@@ -17,6 +17,7 @@ class RedBlackTree{
 	public:
 	
 		RedBlackTree();
+		RedBlackTree(const RedBlackTree& rbt);
         ~RedBlackTree();
 
         void Insert(int x); 
@@ -40,13 +41,14 @@ class RedBlackTree{
         RBTNode* GetUncle(RBTNode* rbn);
         RBTNode* GetNode(int x); 
 
-//	private:
+	private:
         RBTNode *root = nullptr;
         unsigned long long int numItems = 0;
 
         static std::string InfixString(RBTNode* currNode);
         static std::string PrefixString(RBTNode* currNode); 
         static std::string PostfixString(RBTNode* currNode); 
+
         bool hasGrandFather(RBTNode* currNode);
         bool hasFather(RBTNode* currNode);
 
