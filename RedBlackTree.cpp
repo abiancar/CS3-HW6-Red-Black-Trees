@@ -12,15 +12,18 @@ RedBlackTree::RedBlackTree()
 }
 
 // copy constructor 
-RedBlackTree::RedBlackTree(const RedBlackTree& rbt)
+RedBlackTree::RedBlackTree(const RedBlackTree &rbt)
 {
-	this->root = rbt.root;
-	this->numItems = rbt.numItems; 
-	this->InfixString(this->root) = rbt.InfixString(rbt.root);
-	this->PrefixString(this->root) = rbt.PrefixString(rbt.root);
-    this->PostfixString(this->root) = rbt.PostfixString(rbt.root); 
+	root = rbt.root; 
+	numItems = rbt.numItems; 
+	
+	/*
+	InfixString(root) = rbt.InfixString(rbt.root);
+	PrefixString(root) = rbt.PrefixString(rbt.root);
+	PostfixString(root) = rbt.PostfixString(rbt.root); */
  
 }
+
 RedBlackTree::~RedBlackTree()
 {
 	// starting from the maximum
@@ -92,10 +95,7 @@ void RedBlackTree::Insert(int x)
         
         this->numItems++; 
         
-        //if (child->parent->color == black)
-        //{
-		//}
-        // 4 :If the parent of newNode is Red then check the color of uncle
+        // 4 :If the parent of newNode is Red then check the color of uncle     
 		while (child->parent->color != black)
         {  
             // 5: if the uncle is null or the uncle is black, make suitable rotation and recolor 
@@ -106,7 +106,6 @@ void RedBlackTree::Insert(int x)
 				// right right case 
 				if (child->parent == child->parent->parent->right)
 				{
-					//uncle = child->parent->parent->left; 
 					
 					if (child == child->parent->left) 
 					{
@@ -115,17 +114,15 @@ void RedBlackTree::Insert(int x)
 						RightRotation(child); 
 
 					}
-					
+					child->parent->color = black;
+					child->parent->parent->color = red;
 					LeftRotation(child->parent->parent); 
-					child->parent->color = black; 
-					child->parent->right->color = red; 
-					child->parent->left->color = red; 
+
 				}
 				
 				// left left case
 				else if (child->parent == child->parent->parent->left)
 				{
-					//uncle = child->parent->parent->right; 
 					
 					if (child == child->parent->right)
 					{
@@ -134,30 +131,28 @@ void RedBlackTree::Insert(int x)
 						LeftRotation(child);
 					}
 					
+					child->parent->color = black;
+					child->parent->parent->color = red;
 					RightRotation(child->parent->parent);
-					child->parent->color = black; 
-					child->parent->right->color = red; 
-					child->parent->left->color = red; 
 
 				}
              
 
 			}
 
-			// 6: if uncle is red, make uncle black
-			// YES UNCLE 
+			// 6: if uncle is red
+			// parent->black, uncle->black, grandparent->red, and then traverse up to grand-parent
+			// so it's not FlipColor() it's just parent->black
 			else if(this->GetUncle(child)->color == red)
 			{
-				this->FlipColor(this->GetUncle(child)); //flip the uncle's color
-				this->FlipColor(child->parent);
-
-				if(child->parent->parent != root)
-				{
-					this->FlipColor(child->parent->parent);
-				}
+				child->parent->color = black; 
+				this->GetUncle(child)->color = black; 
+				//child = child->parent->parent;
 			}
 			
-			if (child == root)
+			// 3. If the parent of newNode is Black 
+			// then exit from the operation 
+			if (child->parent->color == black)
 			{
 				break; 
 			}
@@ -384,7 +379,7 @@ void RedBlackTree::LeftRotation(RBTNode* currNode)
 	if (currNode->parent == nullptr)
 	{
 		this->root = temp;
-        this->ColorSwap(root,currNode);
+        //this->ColorSwap(root,currNode);
 	}
 	else if (currNode == currNode->parent->left)
 	{
@@ -415,7 +410,7 @@ void RedBlackTree::RightRotation(RBTNode* currNode)
 	{
 
 		this->root = temp;
-        this->ColorSwap(root,currNode);
+        //this->ColorSwap(root,currNode);
 
 	}
 	else if (currNode == currNode->parent->right)
@@ -431,16 +426,9 @@ void RedBlackTree::RightRotation(RBTNode* currNode)
 	currNode->parent = temp;
 }
 
-void RedBlackTree::FlipColor(RBTNode* rbn){ //requires testing
-    if(rbn->color == 0){
-        rbn->color =1;
-    }else{
-        rbn->color =0;
-    }
-}
-
-void RedBlackTree::ColorSwap(RBTNode* rbn1, RBTNode* rbn2){
-    int tmpColor;
+void RedBlackTree::ColorSwap(RBTNode* rbn1, RBTNode* rbn2)
+{
+    int tmpColor = 0;
     tmpColor = rbn1->color;
     rbn1->color = rbn2->color;
     rbn2->color = tmpColor;

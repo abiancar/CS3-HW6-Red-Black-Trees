@@ -273,7 +273,6 @@ void TestInsertRandomTests(){
 	//cout << "tree 6 working: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(9);
 	//cout << "final tree: "  << rbt->ToPrefixString() << endl;
-	//cout << rbt->ToPrefixString() << endl; 
 	//assert(rbt->ToPrefixString() == " B10  R7  B5  B8  R9  R12  B11  B15  R13  R40 ");
 	
 	delete rbt;
@@ -301,6 +300,7 @@ void TestCopyConstructor()
 	assert(rbt2.ToPrefixString() == rbt1.ToPrefixString());
 
 	rbt1.Insert(200);
+	
 	assert(rbt2.ToPrefixString() != rbt1.ToPrefixString());
 
 	cout << "PASSED!" << endl << endl;

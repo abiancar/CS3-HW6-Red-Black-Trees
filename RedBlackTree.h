@@ -23,11 +23,9 @@ class RedBlackTree{
         void Insert(int x); 
         bool Contains(int target);
         
-        
         int GetMin();
         int GetMax();
         int Size();
-        
         
         std::string ToInfixString() const {return InfixString(root);};
         std::string ToPrefixString() const {return PrefixString(root);};
@@ -35,11 +33,13 @@ class RedBlackTree{
        
         void LeftRotation(RBTNode* rbn);
         void RightRotation(RBTNode* rbn);
-        void FlipColor(RBTNode* rbn); // may need more coloring methods
         void ColorSwap(RBTNode* rbn1, RBTNode* rbn2);
         
         RBTNode* GetUncle(RBTNode* rbn);
         RBTNode* GetNode(int x); 
+        
+        bool hasGrandFather(RBTNode* currNode);
+        bool hasFather(RBTNode* currNode);
 
 	private:
         RBTNode *root = nullptr;
@@ -48,9 +48,6 @@ class RedBlackTree{
         static std::string InfixString(RBTNode* currNode);
         static std::string PrefixString(RBTNode* currNode); 
         static std::string PostfixString(RBTNode* currNode); 
-
-        bool hasGrandFather(RBTNode* currNode);
-        bool hasFather(RBTNode* currNode);
 
 };
 
